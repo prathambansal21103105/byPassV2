@@ -1,19 +1,32 @@
 .header {
     max-width: 100%;
     margin: auto;
-    padding: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     display: flex;
-    background-color: rgb(180, 97, 180);
+    /* background-color: rgb(180, 97, 180); */
+    background-color: black;
     color:white;
+    max-height: 90px;
+  }
+
+  .img{
+    margin-top: 20px;
+    height: 80%;
+
   }
 
   .logo {
     justify-content: left;
-    width: 50%;
+    width: 48%;
+    margin-left: 1rem;
   }
 
   .links {
-    width:50%;
+    width:48%;
+    margin-right: 1rem;
+    margin-top: 37px;
+    margin-bottom: 37px;
   }
   
   .list {
@@ -24,11 +37,14 @@
   
   .list a {
     text-decoration: none;
-    color: var(--color-primary-400);
+    color:grey;
   }
   
-  .list a:hover,
-  .list a.active {
-    color: var(--color-primary-800);
+  .list a:hover {
     font-weight: bolder;
+  }
+  .list a.active {
+    /* color: var(--color-primary-800); */
+    font-weight: bolder;
+    color:white;
   }

@@ -5,7 +5,6 @@ const UserLayout=()=>{
     return (
         <>
             <Navbar/>
-            User
             <Outlet/>
         </>
     );
