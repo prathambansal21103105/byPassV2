@@ -18,9 +18,21 @@ mongoose
     console.error(err);
   });
 
-app.get("/", (req, res) => {
-  console.log("Hi");
-});
+app.get("/",(req,res)=>{
+    
+})
+
+app.post("/login",(req,res)=>{
+
+})
+
+app.post("/register",(req,res)=>{
+
+})
+
+app.get("/fetchRides", (req,res)=>{
+
+})
 
 app.listen(port, () => {
   console.log("Server is running on port 4000.");
