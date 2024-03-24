@@ -1,0 +1,33 @@
+.root1{
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    /* column-gap: normal; */
+    justify-content: space-evenly;
+    align-items: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.user{
+    margin-top: 10%;
+    text-align: auto;
+    font-family: helvetica neue, Helvetica, Arial, sans-serif !important;
+    background-color: black;
+    width: 50%;
+}
+
+.info{
+    margin-top: 10%;
+    /* margin-left: 40px; */
+    /* margin-right:40px; */
+    text-align: auto;
+    font-family: helvetica neue, Helvetica, Arial, sans-serif !important;
+    background-color: black;
+    /* padding: 20px; */
+    width:50%;
+}
+
+.img1{
+    height: 200px;
+}
