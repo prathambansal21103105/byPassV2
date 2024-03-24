@@ -1,0 +1,34 @@
+.header {
+    max-width: 100%;
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    background-color: rgb(180, 97, 180);
+    color:white;
+  }
+
+  .logo {
+    justify-content: left;
+    width: 50%;
+  }
+
+  .links {
+    width:50%;
+  }
+  
+  .list {
+    justify-content: right;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .list a {
+    text-decoration: none;
+    color: var(--color-primary-400);
+  }
+  
+  .list a:hover,
+  .list a.active {
+    color: var(--color-primary-800);
+    font-weight: bolder;
+  }

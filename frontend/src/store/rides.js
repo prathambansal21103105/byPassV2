@@ -14,4 +14,4 @@ const ridesSlice=createSlice({
 })
 
 export const ridesActions=ridesSlice.actions;
-export default authSlice;
+export default ridesSlice;

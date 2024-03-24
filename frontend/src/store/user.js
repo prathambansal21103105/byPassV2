@@ -5,10 +5,10 @@ const userSlice=createSlice({
     initialState:{username:"", name:"", email:"", phone:""},
     reducers:{
         setUser(state,userData){
-            state.username=userData.username,
-            state.email=userData.email,
-            state.name=userData.name,
-            state.phone=userData.phone
+            state.username=userData.username;
+            state.email=userData.email;
+            state.name=userData.name;
+            state.phone=userData.phone;
         },
     }
 });
