@@ -7,6 +7,9 @@ import UserLayout from "./components/UserLayout";
 import Browse from "./components/Browse";
 import Profile from "./components/Profile";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import SearchPage from "./components/SearchPage";
+import PublishRide from "./components/PublishRide";
+import HomePage from "./components/HomePage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -18,9 +21,12 @@ const App = () => {
           path: "",
           element: <HomeLayout />,
           children: [
-            { path: "", element: <Filler /> },
+            { path: "", element: <Login /> },
             { path: "login", element: <Login /> },
             { path: "register", element: <Register /> },
+            { path: "search", element: <SearchPage /> },
+            { path: "help", element: <SearchPage /> },
+            { path: "publish", element: <PublishRide /> },
           ],
         },
         {
