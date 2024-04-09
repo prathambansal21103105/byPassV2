@@ -1,20 +1,25 @@
 import React from "react";
 import Logo from "../Images/carpoolingbg.jpeg";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 export const Footer = () => {
+  const controls = useAnimation();
   return (
     <div className="flex flex-col items-center justify-center">
       <motion.div
         className="w-full h-full flex items-center justify-center hover:blur-sm"
-        animate={{
-          y: [0, -10, 0], // Y-axis movement
-          scale: [1, 0.99, 1], // Scale effect
-        }}
-        transition={{
-          duration: 2, // Duration of the animation
-          repeat: Infinity, // Repeat the animation infinitely
-          ease: "easeInOut", // Easing function
-        }}
+        animate={controls}
+        onMouseEnter={() => controls.stop()}
+        onMouseLeave={() =>
+          controls.start({
+            y: [0, -8, 0], // Y-axis movement
+            scale: [1.0001, 1.0001, 1.0001], // Scale effect
+            transition: {
+              duration: 2, // Duration of the animation
+              repeat: Infinity, // Repeat the animation infinitely
+              ease: "easeInOut", // Easing function
+            },
+          })
+        }
       >
         <img src={Logo} className="w-4/5 h-[300px] m-0 rounded-md" alt="" />
       </motion.div>
