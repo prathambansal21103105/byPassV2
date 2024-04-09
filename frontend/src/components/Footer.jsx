@@ -4,24 +4,26 @@ import { motion, useAnimation } from "framer-motion";
 export const Footer = () => {
   const controls = useAnimation();
   return (
-    <div className="flex flex-col items-center justify-center">
-      <motion.div
-        className="w-full h-full flex items-center justify-center hover:blur-sm"
-        animate={controls}
-        onMouseEnter={() => controls.stop()}
-        onMouseLeave={() =>
-          controls.start({
-            y: [0, -8, 0], // Y-axis movement
-            scale: [1.0001, 1.0001, 1.0001], // Scale effect
-            transition: {
-              duration: 2, // Duration of the animation
-              repeat: Infinity, // Repeat the animation infinitely
-              ease: "easeInOut", // Easing function
-            },
-          })
-        }
-      >
-        <img src={Logo} className="w-4/5 h-[300px] m-0 rounded-md" alt="" />
+    <div className="flex flex-col items-center justify-center mt-[600px] md:mt-[50px]">
+      <motion.div className="w-full h-full flex items-center justify-center hover:blur-sm">
+        <motion.img
+          animate={controls}
+          onMouseEnter={() => controls.stop()}
+          onMouseLeave={() =>
+            controls.start({
+              y: [0, -8, 0], // Y-axis movement
+              scale: [1.0001, 1.0001, 1.0001], // Scale effect
+              transition: {
+                duration: 2, // Duration of the animation
+                repeat: Infinity, // Repeat the animation infinitely
+                ease: "easeInOut", // Easing function
+              },
+            })
+          }
+          src={Logo}
+          className="w-4/5 h-[300px] m-0 rounded-md"
+          alt=""
+        />
       </motion.div>
       <footer class="bg-gray-900 text-yellow-400 w-full">
         <div class="max-w-6xl mx-auto px-4 py-10 md:py-12">

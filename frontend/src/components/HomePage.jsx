@@ -25,9 +25,8 @@ const HomePage = () => {
       <p className="text-[2.5rem] font-bold mx-auto">
         "Pooling Rides
         <span className=" text-yellow-400 text-[2.5rem] md:text-[3rem] ">
-          , Sharing Smiles
+          , Sharing Smiles"
         </span>{" "}
-        "
       </p>
       <div className="p-7 px-14 justify-center text-gray-50 mt-20">
         <p className="text-xl">

@@ -5,11 +5,13 @@ import { Footer } from "./Footer";
 
 const RootLayout = () => {
   return (
-    <div className="text-white bg-gray-900 overflow-y-hidden scroll-m-0 scroll-smooth">
+    <div className="text-white bg-gray-900 sscroll-smooth">
       <Header></Header>
       <Subheader />
-      <Outlet />
-      <Footer></Footer>
+      <div className="flex flex-col gap-10 ">
+        <Outlet />
+        <Footer className="sm:mt-[9600px]" />
+      </div>
     </div>
   );
 };
