@@ -18,7 +18,7 @@ const Home = () => {
             y: [0, -14, 0], // Y-axis movement
             scale: [1.001, 1.001, 1.001], // Scale effect
             transition: {
-              duration: 2, // Duration of the animation
+              duration: 4, // Duration of the animation
               repeat: Infinity, // Repeat the animation infinitely
               ease: "easeInOut", // Easing function
             },
