@@ -21,7 +21,7 @@ const App = () => {
           path: "",
           element: <HomeLayout />,
           children: [
-            { path: "", element: <Login /> },
+            { path: "", element: <HomePage /> },
             { path: "login", element: <Login /> },
             { path: "register", element: <Register /> },
             { path: "search", element: <SearchPage /> },
