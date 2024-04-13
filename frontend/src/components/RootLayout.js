@@ -5,7 +5,7 @@ import { Footer } from "./Footer";
 
 const RootLayout = () => {
   return (
-    <div className="text-white bg-gray-900 sscroll-smooth">
+    <div className="text-white bg-black-900 sscroll-smooth">
       <Header></Header>
       <Subheader />
       <div className="flex flex-col gap-10 ">

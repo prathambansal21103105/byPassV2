@@ -16,7 +16,7 @@ const LoginSignupForm = () => {
             Signup
           </span>
           <div
-            className="w-14 h-8 bg-gray-200 rounded-full p-1 mx-2 cursor-pointer"
+            className="w-14 h-8 bg-black-200 rounded-full p-1 mx-2 cursor-pointer"
             onClick={() => setIsLogin(!isLogin)}
           >
             {/* Slider */}

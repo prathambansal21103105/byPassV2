@@ -25,7 +25,8 @@ export const Footer = () => {
           alt=""
         />
       </motion.div>
-      <footer class="bg-gray-900 text-yellow-400 w-full">
+      <div></div>
+      <footer class=" text-yellow-400 w-full">
         <div class="max-w-6xl mx-auto px-4 py-10 md:py-12">
           <div class="xl:grid grid-cols-3 gap-8">
             <div class="space-y-4">
