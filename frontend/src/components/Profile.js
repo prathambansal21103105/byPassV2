@@ -1,6 +1,8 @@
 // import Logo from '../Images/edit.jpeg';
+import { useState } from "react";
 
 const Profile=()=>{
+    const [form,setForm]=useState(false);
     const url="https://cdn.racingnews365.com/Riders/Hamilton/_570x570_crop_center-center_none/f1_2024_lh_mer_lg.png?v=1708704226";
     return(
     <>
@@ -60,17 +62,17 @@ const Profile=()=>{
                 </div>
                 <button className="edit"> Edit </button>
                 </div>
-                <div className="outerContainer">
+                {/* <div className="outerContainer">
                 <span className="title">Past rides</span>
                 <div className="content3">
                 <div className="qs">
                    
                 </div>
-                <div className="form">
+                {/* <div className="form">
 
-                </div>
-                </div>
-                </div>
+                </div> */}
+                {/* </div> */}
+                {/* </div>  */}
             </div>
         </div>
     </>

@@ -40,11 +40,16 @@
     color:grey;
   }
   
-  .list a:hover {
+  a:hover {
     font-weight: bolder;
   }
-  .list a.active {
+  a.active {
     /* color: var(--color-primary-800); */
     font-weight: bolder;
-    color:white;
+    color: goldenrod;
+    /* color:black; */
+    /* background-color: white; */
+    border-radius: 20%;
+    text-shadow: 80%;
+    border-color: goldenrod;
   }

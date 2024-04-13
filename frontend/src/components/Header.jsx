@@ -6,8 +6,9 @@ import classes from './Navbar.module.css';
 const Header = () => {
   const navigate = useNavigate();
   return (
+    <div className="head">
     <div className="p-3 bg-black-900 rounded-lg shadow-sm flex w-full h-full items-center justify-between border-b-white-400 border-b-1 shadow-white-100">
-      <NavLink to="/">
+      <NavLink to="/" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>
         <motion.div whileHover={{ scale: 1.2 }}>
           <div className="flex items-center gap-2 cursor-pointer">
             <img src={Logo} className="w-10 h-10 object-cover" alt="Logo img" />
@@ -17,7 +18,7 @@ const Header = () => {
       </NavLink>
 
       <div className="md:flex gap-5 justify-center items-center hidden">
-        <NavLink to="/search">
+        <NavLink to="/search" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>
           <motion.div
             whileTap={{ scale: 0.8 }}
             className="flex gap-1 items-center justify-center border-2 bg-black-900 rounded-full  border-white-200 p-2 cursor-pointer hover:bg-cardOverlay"
@@ -28,7 +29,7 @@ const Header = () => {
             </div>
           </motion.div>
         </NavLink>
-        <NavLink to="/publish">
+        <NavLink to="/publish" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>
           <motion.div whileTap={{ scale: 0.8 }}>
             <div className="flex gap-1 items-center justify-center border-2 bg-black-900 rounded-full  border-white-200 p-2 cursor-pointer hover:bg-cardOverlay">
               <i class="fi fi-rr-add text-white-400"></i>
@@ -41,8 +42,15 @@ const Header = () => {
       </div>
       <div>
         <motion.div className="flex gap-4 items-center justify-center border-2 bg-black-900 rounded-lg border-none p-2">
-        <NavLink to="/user/browse" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>Browse</NavLink>
-          <NavLink to="/help">
+        <NavLink to="/user/browse" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>
+        <motion.div
+              whileTap={{ scale: 0.8 }}
+              className="rounded-full hover:bg-cardOverlay p-2 items-center justify-center cursor-pointer"
+            >
+              <div className={`font-semibold text-white-400`}>Browse </div>
+            </motion.div>
+          </NavLink>
+          <NavLink to="/help" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>
             <motion.div
               whileTap={{ scale: 0.8 }}
               className="rounded-full hover:bg-cardOverlay p-2 items-center justify-center cursor-pointer"
@@ -50,7 +58,7 @@ const Header = () => {
               <div className={`font-semibold text-white-400`}>Help </div>
             </motion.div>
           </NavLink>
-          <NavLink to="/login">
+          <NavLink to="/login" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>
             <motion.div
               whileTap={{ scale: 0.8 }}
               className="rounded-full hover:bg-cardOverlay p-2 items-center justify-center cursor-pointer"
@@ -58,7 +66,7 @@ const Header = () => {
               <div className={`font-semibold text-white-400`}>Login </div>
             </motion.div>
           </NavLink>
-          <NavLink to="/register">
+          <NavLink to="/register" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>
             <motion.div
               whileTap={{ scale: 0.8 }}
               className="rounded-full hover:bg-cardOverlay p-2 items-center justify-center cursor-pointer"
@@ -66,9 +74,17 @@ const Header = () => {
               <div className={`font-semibold text-white-400`}>Signup </div>
             </motion.div>
           </NavLink>
-          <NavLink to="/user/profile" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>Profile</NavLink>
+          <NavLink to="/user/profile" className={({isActive})=> isActive ? classes.active:undefined} id="nav" end>
+          <motion.div
+              whileTap={{ scale: 0.8 }}
+              className="rounded-full hover:bg-cardOverlay p-2 items-center justify-center cursor-pointer"
+            >
+              <div className={`font-semibold text-white-400`}>Profile </div>
+            </motion.div>
+          </NavLink>
         </motion.div>
       </div>
+    </div>
     </div>
   );
 };

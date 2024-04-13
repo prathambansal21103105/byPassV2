@@ -60,6 +60,8 @@ code {
   background-color: transparent;
   width: 50%;
   color:white;
+  flex-wrap: wrap;
+
 }
 
 .info{
@@ -69,6 +71,8 @@ code {
   background-color: transparent ;
   width: 50%;
   text-align: left;
+  flex-wrap: wrap;
+
 }
 
 .content{
@@ -223,5 +227,45 @@ code {
 }
 
 .foot{
-  margin-top: 100px;
+  padding-top: 100px;
+}
+
+.head{
+  padding-bottom: 30px;
+  color:white;
+}
+
+@media screen and (max-width: 750px) {
+  .root1 {
+      flex-direction: column;
+  }
+
+  .info {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+  }
+
+  .user {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    margin-bottom: 70px;
+  }
+
+  .content{
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .outerContainer{
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
