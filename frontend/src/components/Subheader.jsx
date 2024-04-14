@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 const Subheader = () => {
   return (
-    <div className="flex justify-center items-center mt-3 md:hidden">
+    <div className="flex justify-center items-center mt-3 md:hidden mb-3">
       <div className="flex gap-2 justify-center items-center">
         <motion.div
           whileTap={{ scale: 0.8 }}

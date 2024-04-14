@@ -1,7 +1,6 @@
 const Browse=()=>{
     return(
     <>
-        Browse
     </>
     );
 }

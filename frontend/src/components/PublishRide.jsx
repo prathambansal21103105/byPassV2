@@ -1,7 +1,7 @@
 import React from "react";
 
 const PublishRide = () => {
-  return <div>publishRide</div>;
+  return <div></div>;
 };
 
 export default PublishRide;

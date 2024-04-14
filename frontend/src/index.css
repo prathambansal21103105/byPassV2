@@ -54,31 +54,52 @@ code {
 }
 
 .user{
-  margin-top: 7%;
+  padding-top: 6%;
   text-align: center;
   font-family: helvetica neue, Helvetica, Arial, sans-serif !important;
   background-color: transparent;
-  width: 50%;
+  width: 45%;
   color:white;
   flex-wrap: wrap;
-
+  /* background-color: black; */
+  height: 100%;
+  padding-bottom: 20%;
 }
 
 .info{
-  margin-top: 7%;
+  /* margin-top: 7%;
   text-align: center;
   font-family: helvetica neue, Helvetica, Arial, sans-serif ;
   background-color: transparent ;
   width: 50%;
   text-align: left;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+  
+  width:55%;
+  height:100%;
+  /* color:#FACC15; */
+  font-size: 20px;
+  display: flex;
+  flex-direction:column;
+  margin:auto;
+  margin-top: 3% !important;
+  text-align: center;
+  /* text-align: center; */
+}
 
+.ques{
+  display: block;
 }
 
 .content{
-  margin-left:25%;
-  margin-right:15%;
-  width: 320px;
+  width: max-content;
+  padding: 30px;
+  border-radius: 30px;
+  margin: auto;
+  border: dashed;
+  border-color: gold;
+  background: goldenrod;
+  color:black;
 }
 
 .content1{
@@ -87,7 +108,7 @@ code {
   height: max-content;
   margin-right: 15% !important;
   border-radius: 10px;
-  color:white;
+  color: white;
   font-size: 20px;
   font-weight: bold;
   text-align: left;
@@ -97,8 +118,8 @@ code {
   padding-right: 20px;
   display: flex;
   flex-direction: row;
-  width:max-content;
 }
+
 
 .content3{
   margin-top: 0px;
@@ -161,21 +182,10 @@ code {
 }
 
 .bold{
-  color:rgb(82, 82, 82);
+  /* color:rgb(82, 82, 82); */
   font-weight: bold;
-  
+  color:#201908;
 }
-/* .info{
-  margin-top: 12%;
-  text-align: auto;
-  font-family: helvetica neue, Helvetica, Arial, sans-serif !important;
-  background-color: grey !important;
-  height:60px;
-  width:35%;
-  color:white;
-  margin-right: 15%;
-  border-radius: 30px;
-} */
 
 .img1{
   border-radius: 50%;
@@ -183,13 +193,15 @@ code {
   margin-bottom: 10px;
   height: 320px;
   width: 320px;
+  /* background-color: rgba(238, 234, 234, 0.86); */
 }
 
 .nameHead{
   font-size: 30px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: bold;
-  color:#00ffffa8;
+  /* color:#00ffffa8; */
+  color: #433d0b;
 }
 
 .image1{
@@ -256,7 +268,7 @@ code {
     justify-content: center;
     text-align: center;
     display: flex;
-    margin-bottom: 70px;
+    margin-bottom: 0px;
   }
 
   .content{
@@ -290,4 +302,12 @@ code {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #cbaa01;
+}
+
+.formActual{
+  background-color: transparent;
+}
+
+.title1{
+  color:rgb(225, 193, 35);
 }
