@@ -6,12 +6,11 @@ import classes from "./Navbar.module.css";
 const Header = () => {
   const navigate = useNavigate();
   return (
-    <div className="head">
+    // <div className="head">
       <div className="p-3 bg-black-900 rounded-lg shadow-sm flex w-full h-full items-center justify-between border-b-white-400 border-b-1 shadow-white-100">
         <NavLink
           to="/"
-          className={({ isActive }) => (isActive ? classes.active : undefined)}
-          id="nav"
+          className="text-textColor"
           end
         >
           <motion.div whileHover={{ scale: 1.2 }}>
@@ -30,14 +29,14 @@ const Header = () => {
           <NavLink
             to="/search"
             className={({ isActive }) =>
-              isActive ? classes.active : undefined
+              isActive ? `bg-yellow-600 rounded-full border-yellow-600` :`font-semibold text-yellow-400 border-yellow-400`
             }
-            id="nav"
+            // id="nav"
             end
           >
             <motion.div
               whileTap={{ scale: 0.8 }}
-              className="flex gap-1 items-center justify-center border-2 bg-black-900 rounded-full  border-white-200 p-2 cursor-pointer hover:bg-cardOverlay"
+              className="flex gap-1 items-center justify-center border-2 bg-black-900 rounded-full  border-yellow-600 p-2 cursor-pointer hover:bg-cardOverlay"
             >
               <i class="fi fi-rr-search text-white-400"></i>
               <div className="font-semibold text-white-400">
@@ -48,17 +47,18 @@ const Header = () => {
           <NavLink
             to="/publish"
             className={({ isActive }) =>
-              isActive ? classes.active : undefined
+              isActive ? `bg-yellow-600 rounded-full border-yellow-600` :`font-semibold text-yellow-400 border-yellow-400`
             }
-            id="nav"
+            // id="nav"
             end
           >
-            <motion.div whileTap={{ scale: 0.8 }}>
-              <div className="flex gap-1 items-center justify-center border-2 bg-black-900 rounded-full  border-white-200 p-2 cursor-pointer hover:bg-cardOverlay">
-                <i class="fi fi-rr-add text-white-400"></i>
-                <div className="font-semibold text-white-400">
-                  Publish a Ride{" "}
-                </div>
+            <motion.div
+              whileTap={{ scale: 0.8 }}
+              className="flex gap-1 items-center justify-center border-2 bg-black-900 rounded-full  border-yellow-600 p-2 cursor-pointer hover:bg-cardOverlay"
+            >
+              <i class="fi fi-rr-search text-white-400"></i>
+              <div className="font-semibold text-white-400">
+                Publish for a ride{" "}
               </div>
             </motion.div>
           </NavLink>
@@ -68,7 +68,7 @@ const Header = () => {
             <NavLink
               to="/user/browse"
               className={({ isActive }) =>
-                isActive ? classes.active : undefined
+                isActive ? `bg-yellow-600 rounded-full` : undefined
               }
               id="nav"
               end
@@ -83,7 +83,7 @@ const Header = () => {
             <NavLink
               to="/help"
               className={({ isActive }) =>
-                isActive ? classes.active : undefined
+                isActive ? `bg-yellow-600 rounded-full` : undefined
               }
               id="nav"
               end
@@ -98,7 +98,7 @@ const Header = () => {
             <NavLink
               to="/login"
               className={({ isActive }) =>
-                isActive ? classes.active : undefined
+                isActive ? `bg-yellow-600 rounded-full` : undefined
               }
               id="nav"
               end
@@ -113,7 +113,7 @@ const Header = () => {
             <NavLink
               to="/register"
               className={({ isActive }) =>
-                isActive ? classes.active : undefined
+                isActive ? `bg-yellow-600 rounded-full` : undefined
               }
               id="nav"
               end
@@ -128,7 +128,7 @@ const Header = () => {
             <NavLink
               to="/user/profile"
               className={({ isActive }) =>
-                isActive ? classes.active : undefined
+                isActive ? `bg-yellow-600 rounded-full` : undefined
               }
               id="nav"
               end
@@ -143,7 +143,7 @@ const Header = () => {
           </motion.div>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 

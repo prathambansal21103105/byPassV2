@@ -54,7 +54,7 @@ code {
 }
 
 .user{
-  margin-top: 8%;
+  margin-top: 7%;
   text-align: center;
   font-family: helvetica neue, Helvetica, Arial, sans-serif !important;
   background-color: transparent;
@@ -268,4 +268,26 @@ code {
     margin-left: 0;
     margin-right: 0;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #555;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #FACC15;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cbaa01;
 }

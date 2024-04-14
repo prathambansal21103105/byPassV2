@@ -5,7 +5,7 @@ export const Footer = () => {
   const controls = useAnimation();
   return (
     <div className="flex flex-col items-center justify-center mt-[600px] md:mt-[50px]">
-      <motion.div className="w-full h-full flex items-center justify-center hover:scale-110">
+      <motion.div className="w-full h-full flex items-center justify-center ">
         <motion.img
           animate={controls}
           onMouseEnter={() => controls.stop()}

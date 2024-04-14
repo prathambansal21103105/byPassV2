@@ -6,7 +6,7 @@ const Home = () => {
   const controls = useAnimation();
 
   return (
-    <div className="flex mx-auto p-16 px-16 w-full h-full justify-center items-center">
+    <div className="text-yellow-300 items-center py-28 px-12 flex flex-col">
       <motion.img
         src={BgImage}
         className="rounded-3xl shadow-sm shadow-yellow-50 h-fit w-fit md:h-[550px]"
