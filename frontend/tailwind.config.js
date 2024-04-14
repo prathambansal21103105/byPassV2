@@ -46,7 +46,7 @@ module.exports = {
       },
       colors: {
         headingColor: "#2e2e2e",
-        textColor: "#515151",
+        textColor: "#daa520",
         cartNumBg: "#e80013",
         primary: "#f5f3f3",
         cardOverlay: "rgba(256,256,256,0.4)",
@@ -55,6 +55,7 @@ module.exports = {
         cartBg: "#282a2c",
         cartItem: "#2e3033",
         cartTotal: "#343739",
+        bypassColor: "#242424",
       },
     },
   },
