@@ -2,10 +2,11 @@ const router = require("express").Router();
 const { User } = require("../models/user");
 const Token = require("../models/token");
 const crypto = require("crypto");
+const cookieParser = require("cookie-parser");
 const sendEmail = require("../utils/sendEmail");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
-
+router.use(cookieParser());
 router.post("/", async (req, res) => {
   try {
     const { error } = validate(req.body);
@@ -34,15 +35,23 @@ router.post("/", async (req, res) => {
         sendEmail(user.email, "Verify Email", url);
         console.log("Harsh");
       }
-      const url = `${process.env.BASE_URL}register/${user.id}/verify/${token.token}`;
+      const url = `http://localhost:3000/register/${user.id}/verify/${token.token}`;
       sendEmail(user.email, "Verify Email", url);
       return res
         .status(400)
         .send({ message: "An Email sent to your account please verify" });
     }
-
+    console.log("hi");
     const token = user.generateAuthToken();
-    res.status(200).send({ data: token, message: "logged in successfully" });
+    res.cookie("bypass_auth_token", token, {
+      expires: new Date(Date.now() + 25892000000),
+      secure: false,
+      httpOnly: true,
+      sameSite: "none",
+    });
+    res.status(200).json({ data: token, message: "logged in successfully" });
+
+    // res.status(200).send({ data: token, message: "logged in successfully" });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error" });
   }

@@ -1,10 +1,37 @@
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 const Login = () => {
   const controls = useAnimation();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  axios.defaults.withCredentials = true;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = "http://localhost:3001/login";
+      const data = {
+        email: email,
+        password: password,
+      };
+      await axios.post(url, data).then((res) => {
+        console.log(res);
+        if (res.data.message === "logged in successfully")
+          window.location = "/";
+      });
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
   return (
     <motion.div
       animate={controls}
@@ -27,7 +54,7 @@ const Login = () => {
       {" "}
       <p className="text-[2.5rem] font-bold mx-auto mt-12">Login</p>
       <div>
-        <form className="mr-4 ml-4">
+        <form className="mr-4 ml-4" onSubmit={handleSubmit}>
           <div className="w-full py-2  flex items-center gap-2 rounded-md">
             <div className="w-full h-full flex flex-col md:flex-row">
               <label htmlFor="email" className="text-lg text-yellow-400 mr-5">
@@ -63,6 +90,7 @@ const Login = () => {
               Login
             </button>
           </div>
+          {error && <div className="text-red-500">{error}</div>}
         </form>
         <br></br>
         <p className="text-yellow-400">Don't have an account?</p>

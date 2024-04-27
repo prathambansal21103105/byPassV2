@@ -1,12 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 const Register = () => {
   const controls = useAnimation();
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [mobileNumber, setmobileNumber] = useState();
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mobileNumber, setmobileNumber] = useState("");
+  const [error, setError] = useState("");
+  const [msg, setMsg] = useState("");
+  const toast = useToast();
+  useEffect(() => {}, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = "http://localhost:3001/register";
+      const data = {
+        firstName: firstname,
+        lastName: lastname,
+        email: email,
+        password: password,
+        MobileNo: mobileNumber,
+      };
+      await axios.post(url, data).then((res) => {
+        console.log(res);
+        setMsg(res.data.message);
+        if (res.status === 201) {
+          setError("");
+        }
+      });
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
   return (
     <motion.div
       animate={controls}
@@ -29,20 +65,37 @@ const Register = () => {
       {" "}
       <p className="text-[2.5rem] font-bold mx-auto mt-12">Register</p>
       <div>
-        <form className="mr-4 ml-4">
+        <form className="mr-4 ml-4" onSubmit={handleSubmit}>
           <div className="w-full py-2  flex items-center gap-2 rounded-md">
             <div className="w-full h-full flex flex-col md:flex-row">
               <label
-                htmlFor="username"
+                htmlFor="firstname"
                 className="text-lg text-yellow-400 mr-5"
               >
-                Username:
+                First Name:
               </label>
               <input
                 type="text"
-                placeholder="Enter Username"
+                placeholder="Enter First Name"
                 className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-yellow-400"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setFirstname(e.target.value)}
+              />
+            </div>
+          </div>
+          <br />
+          <div className="w-full py-2  flex items-center gap-2 rounded-md">
+            <div className="w-full h-full flex flex-col md:flex-row">
+              <label
+                htmlFor="lastname"
+                className="text-lg text-yellow-400 mr-5"
+              >
+                Last Name:
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Last Name"
+                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-yellow-400"
+                onChange={(e) => setLastname(e.target.value)}
               />
             </div>
           </div>
@@ -100,6 +153,8 @@ const Register = () => {
             </button>
           </div>
         </form>
+        {error && <p className="text-red-500">{error}</p>}
+        {!error && msg && <p className="text-green-500">{msg}</p>}
         <br></br>
         <p className="text-yellow-400">Don't have an account?</p>
         <ul>
