@@ -7,16 +7,16 @@ const port = process.env.PORT || 4000;
 const url = process.env.URL_MONGODB;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
-mongoose
-  .connect(url)
-  .then(() => {
-    console.log("Connected to MongoDB Atlas database");
-  })
-  .catch((err) => {
-    console.log(url);
-    console.log("MongoDB Atlas server not connected");
-    console.error(err);
-  });
+// mongoose
+//   .connect(url)
+//   .then(() => {
+//     console.log("Connected to MongoDB Atlas database");
+//   })
+//   .catch((err) => {
+//     console.log(url);
+//     console.log("MongoDB Atlas server not connected");
+//     console.error(err);
+//   });
 
 app.get("/",(req,res)=>{
     
