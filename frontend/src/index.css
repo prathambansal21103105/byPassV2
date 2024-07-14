@@ -517,3 +517,52 @@ code {
   width:47px;
   margin-right:20px;
 }
+
+.helpTitle{
+  margin-top:57px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 37px;
+  color:goldenrod;
+}
+
+.text{
+  color:white;
+  font-size:18px;
+  font-weight: 100;
+  margin-top: 30px;
+  margin-left:47px;
+  margin-right:47px;
+  margin-bottom:40px;
+}
+
+.helpRoot{
+  display:flex;
+}
+
+.helpUser{
+  width:50%;
+  text-align: center;
+  height:230px;
+}
+
+.helpInfo{
+  width:50%;
+  text-align: left;
+  height:230px;
+}
+
+.userSub{
+  background-color: white;
+  margin-left:auto;
+  margin-right:20px;
+  height:220px;
+  width:300px;
+}
+
+.infoSub{
+  background-color: white;
+  margin-left:20px;
+  height:220px;
+  width:300px;
+}

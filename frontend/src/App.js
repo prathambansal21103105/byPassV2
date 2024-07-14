@@ -1,6 +1,7 @@
 import RootLayout from "./components/RootLayout";
 import HomeLayout from "./components/HomeLayout";
 import Filler from "./components/Filler";
+import Help from "./components/Help";
 import Login from "./components/Login";
 import Register from "./components/Resgister";
 import UserLayout from "./components/UserLayout";
@@ -25,7 +26,6 @@ const App = () => {
             { path: "login", element: <Login /> },
             { path: "register", element: <Register /> },
             { path: "search", element: <SearchPage /> },
-            { path: "help", element: <SearchPage /> },
             { path: "publish", element: <PublishRide /> },
           ],
         },
@@ -33,6 +33,7 @@ const App = () => {
           path: "user/",
           element: <UserLayout />,
           children: [
+            { path: "help", element: <Help/> },
             { path: "browse", element: <Browse /> },
             { path: "profile", element: <Profile /> },
           ],
