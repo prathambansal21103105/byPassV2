@@ -1,3 +1,8 @@
+import phone from '../Images/phone.jpeg';
+import location from '../Images/location.jpeg';
+import fax from '../Images/fax.jpeg';
+import email from '../Images/email.jpeg';
+
 const Help=()=>{
     return(
     <>
@@ -11,18 +16,51 @@ const Help=()=>{
     </div>
     <div className="helpRoot">
         <div className="helpUser">
-            <div className="userSub"></div>
+            <div className="userSub">
+                <div className='entity'>
+                <img src={location} className='helpImg'></img>
+                <span className='bold'>Location</span>
+                <br></br>
+                Mountain View, CA 94043, United States
+                </div>
+            </div>
         </div>
         <div className="helpInfo">
-            <div className="infoSub"></div>
+            <div className="infoSub">
+                <div className='entity'>
+                <img src={phone} className='helpImg'></img>
+                <span className='bold'>Phone</span>
+                <br></br>
+                99988 87779
+                <br></br>
+                99998 88889
+                </div>
+            </div>
         </div>
     </div>
     <div className="helpRoot">
         <div className="helpUser">
-            <div className="userSub"></div>
+            <div className="userSub">
+                <div className='entity'>
+                <img src={fax} className='helpImg'></img>
+                <span className='bold'>Fax Info</span>
+                999-99999
+                <br></br>
+                999-98888
+                </div>
+            </div>
         </div>
         <div className="helpInfo">
-            <div className="infoSub"></div>
+            <div className="infoSub">
+                <div className='entity'>
+                <img src={email} className='helpImg'></img>
+                <span className='bold'>Email</span>
+                <br></br>
+                bypass.carpool@j.mail
+                <br></br>
+                uber.pro@j.mail
+                </div>
+            </div>
         </div>
     </div>
     </>

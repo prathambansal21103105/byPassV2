@@ -543,26 +543,47 @@ code {
 .helpUser{
   width:50%;
   text-align: center;
-  height:230px;
+  height:270px;
 }
 
 .helpInfo{
   width:50%;
   text-align: left;
-  height:230px;
+  height:270px;
 }
 
 .userSub{
   background-color: white;
   margin-left:auto;
   margin-right:20px;
-  height:220px;
+  height:250px;
   width:300px;
+  text-align: center;
 }
 
 .infoSub{
   background-color: white;
   margin-left:20px;
-  height:220px;
+  height:250px;
   width:300px;
+  text-align: center;
+}
+
+.helpImg{
+  height:70px;
+}
+
+.entity{
+  height: 220px;
+  margin: auto;
+  display: flex;
+  padding-top: 40px;
+  text-align: center;
+  color: black;
+  flex-wrap: wrap;
+  max-width: 110px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  align-content: space-between;
 }
