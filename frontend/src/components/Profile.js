@@ -1,13 +1,42 @@
 // import Logo from '../Images/edit.jpeg';
 import { useState } from "react";
+import check from '../Images/goldCheckMarkImg.png';
+import checkFinal from '../Images/checkFinal2.gif';
+import Modal from "./Modal";
 
 const Profile=()=>{
-    const [form,setForm]=useState(false);
     const url="https://cdn.racingnews365.com/Riders/Hamilton/_570x570_crop_center-center_none/f1_2024_lh_mer_lg.png?v=1708704226";
     const [email,setEmail]=useState("lhamilton@gmail.com");
     const [phone,setPhone]=useState("9998887779");
     const [city,setCity]=useState("Chicago");
     const [code,setCode]=useState("998899");
+    const [car,setCar]=useState("Audi");
+    const [type,setType]=useState("type");
+    const [color,setColor]=useState("Black");
+    const [no,setNo]=useState("CA 12345678");
+    const [profile,setProfile]=useState({email,phone,city,code,car,type,color,no});
+    const [change,setChange]=useState(false);
+    const [modal,setModal]=useState(false);
+
+    const submitHandler=()=>{
+      setChange(false);
+      const newState = {email,phone,city,code,car,type,color,no};
+      let flag=0;
+      for(const key in profile){
+        if(profile[key] !== newState[key]){
+          flag=1;
+        }
+      }
+      if(flag==1){
+        console.log(profile);
+        console.log(newState);
+        // redux data update
+        console.log("state changed");
+      }
+      setProfile(newState);
+      setModal(true);
+      setTimeout(()=>{setModal(false)},3000);
+    }
 
     return(
     <>
@@ -16,7 +45,7 @@ const Profile=()=>{
                 <div className="content">
                     <span className="nameHead">Lewis Hamilton</span>
                     <img src={url} alt={"photo"} className="img1" />
-                    @lhamilton90
+                    {email}
                     <div className="root2">
                     <div className="card">
                         2
@@ -96,7 +125,7 @@ const Profile=()=>{
                 {/* </div> */}
                 {/* </div>  */}
             {/* </div> */}
-        <div className="info gap-y-20">
+        <div className="info">
                 {/* <div className="ques">
                 Email:
                 Phone Number:
@@ -114,7 +143,7 @@ const Profile=()=>{
                 type="email"
                 placeholder="Enter Email"
                 className="w-full h-full text-1xl bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {setEmail(e.target.value); setChange(true);}}
                 value={email}
               />
             </div>
@@ -128,7 +157,7 @@ const Profile=()=>{
                 type="text"
                 placeholder="Enter Phone Number"
                 className="w-full h-full text-1xl bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {setPhone(e.target.value); setChange(true);}}
                 value={phone}
               />
             </div>
@@ -142,7 +171,7 @@ const Profile=()=>{
                 type="text"
                 placeholder="Enter City"
                 className="w-full h-full text-1xl bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => {setCity(e.target.value); setChange(true);}}
                 value={city}
               />
             </div>
@@ -156,73 +185,82 @@ const Profile=()=>{
                 type="text"
                 placeholder="Enter Code"
                 className="w-full h-full text-1xl bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
-                onChange={(e) => setCode(e.target.value)}
+                onChange={(e) => { setCode(e.target.value); setChange(true);}}
                 value={code}
               />
             </div>
             </div>
             </form>
-            <form className="text-center">
+            <form className="text-center pb-7 pt-7 mr-7 ml-7 border-solid-white">
             <div className="text-2xl text-white-900 mb-4 font-bold ">Vehicle Info</div>
+            <div className="w-full py-2  flex items-center gap-2 rounded-md">
+            <div className="w-half h-full flex flex-col md:flex-row m-auto ">
+              <label htmlFor="text" className="text-1xl text-yellow-400 mr-2">
+                Car:
+              </label>
+              <input
+                type="text"
+                placeholder="Name of Car"
+                className="w-full h-full text-1xl bg-transparent outline-none placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
+                onChange={(e) => {setCar(e.target.value); setChange(true);}}
+                value={car}
+              />
+            </div>
+            </div>
             <div className="w-full py-2  flex items-center gap-2 rounded-md">
             <div className="w-half h-full flex flex-col md:flex-row m-auto">
               <label htmlFor="email" className="text-1xl text-yellow-400 mr-2">
-                Email:
+                Type:
               </label>
               <input
-                type="email"
-                placeholder="Enter Email"
+                type="text"
+                placeholder="Enter Type"
                 className="w-full h-full text-1xl bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
+                onChange={(e) => {setType(e.target.value); setChange(true);}}
+                value={type}
               />
             </div>
             </div>
             <div className="w-full py-2  flex items-center gap-2 rounded-md">
             <div className="w-half h-full flex flex-col md:flex-row m-auto ">
               <label htmlFor="text" className="text-1xl text-yellow-400 mr-2">
-                Phone:
+                Color:
               </label>
               <input
                 type="text"
-                placeholder="Enter Phone Number"
+                placeholder="Enter Color"
                 className="w-full h-full text-1xl bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
-                onChange={(e) => setPhone(e.target.value)}
-                value={phone}
-              />
-            </div>
-            </div>
-            <div className="w-full py-2  flex items-center gap-2 rounded-md">
-            <div className="w-half h-full flex flex-col md:flex-row m-auto ">
-              <label htmlFor="text" className="text-1xl text-yellow-400 mr-2">
-                City:
-              </label>
-              <input
-                type="text"
-                placeholder="Enter City"
-                className="w-full h-full text-1xl bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
-                onChange={(e) => setCity(e.target.value)}
-                value={city}
+                onChange={(e) => {setColor(e.target.value); setChange(true);}}
+                value={color}
               />
             </div>
             </div>
             <div className="w-full py-2  flex items-center gap-2 rounded-md">
             <div className="w-half h-full flex flex-col md:flex-row m-auto selection:">
               <label htmlFor="text" className="text-1xl text-yellow-400 mr-2">
-                Code:
+                No.:
               </label>
               <input
                 type="text"
-                placeholder="Enter Code"
+                placeholder="Enter number"
                 className="w-full h-full text-1xl bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-white-400 ml-2"
-                onChange={(e) => setCode(e.target.value)}
-                value={code}
+                onChange={(e) => {setNo(e.target.value); setChange(true);}}
+                value={no}
               />
             </div>
             </div>
             </form>
+            <button className="checkButton" onClick={submitHandler}> {change && <img src={check} className="check"></img>}</button>
         </div>
         </div>
+        {modal && <div className="modal">
+          <Modal open={modal}>
+            <div className="message">
+              <img src={checkFinal} className="imgCheck"></img>
+              Profile saved
+            </div>
+          </Modal>
+        </div>}
     </>
     );
 }
