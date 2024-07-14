@@ -11,6 +11,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SearchPage from "./components/SearchPage";
 import PublishRide from "./components/PublishRide";
 import HomePage from "./components/HomePage";
+import EmailVerify from "./components/EmailVerify";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -27,6 +28,7 @@ const App = () => {
             { path: "register", element: <Register /> },
             { path: "search", element: <SearchPage /> },
             { path: "publish", element: <PublishRide /> },
+            { path: "register/:id/verify/:token", element: <EmailVerify /> },
           ],
         },
         {

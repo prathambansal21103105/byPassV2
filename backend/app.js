@@ -1,39 +1,29 @@
+require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
 const app = express();
-const temp = require("dotenv").config();
-const port = process.env.PORT || 4000;
-const url = process.env.URL_MONGODB;
-app.use(cors({ origin: "*" }));
+const cors = require("cors");
+const connection = require("./db");
+const userRoutes = require("./router/register");
+const authRoutes = require("./router/login");
+const cookieParser = require("cookie-parser");
+// database connection
+connection();
+
+// middlewares
 app.use(express.json());
-// mongoose
-//   .connect(url)
-//   .then(() => {
-//     console.log("Connected to MongoDB Atlas database");
-//   })
-//   .catch((err) => {
-//     console.log(url);
-//     console.log("MongoDB Atlas server not connected");
-//     console.error(err);
-//   });
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    //   origin: ["https://fruits-wala.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-app.get("/",(req,res)=>{
-    
-})
+// routes
+app.use("/register", userRoutes);
+app.use("/login", authRoutes);
 
-app.post("/login",(req,res)=>{
-
-})
-
-app.post("/register",(req,res)=>{
-
-})
-
-app.get("/fetchRides", (req,res)=>{
-
-})
-
-app.listen(port, () => {
-  console.log("Server is running on port 4000.");
-});
+const port = process.env.PORT;
+app.listen(port, console.log(`Listening on port ${port}...`));
