@@ -81,7 +81,7 @@ const Header = () => {
               </motion.div>
             </NavLink>
             <NavLink
-              to="/help"
+              to="/user/help"
               className={({ isActive }) =>
                 isActive ? `bg-yellow-600 rounded-full` : undefined
               }
