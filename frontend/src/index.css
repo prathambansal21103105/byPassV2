@@ -77,8 +77,8 @@ code {
   text-align: left;
   flex-wrap: wrap; */
   
-  width:55%;
-  height:100%;
+  width:27%;
+  max-height: 614px;
   /* color:#FACC15; */
   font-size: 20px;
   display: flex;
@@ -87,6 +87,29 @@ code {
   margin-top: 3% !important;
   text-align: center;
   background-color: black;
+  margin-right:30px;
+  /* text-align: center; */
+}
+
+.info1{
+  /* margin-top: 7%;
+  text-align: center;
+  font-family: helvetica neue, Helvetica, Arial, sans-serif ;
+  background-color: transparent ;
+  width: 50%;
+  text-align: left;
+  flex-wrap: wrap; */
+  padding-top:1.75rem;
+  width:27%;
+  height:100%;
+  /* color:#FACC15; */
+  font-size: 20px;
+  display: flex;
+  flex-direction:column;
+  margin:auto;
+  margin-top: 3% !important;
+  text-align: center;
+  background-color: white;
   margin-right:30px;
   /* text-align: center; */
 }
@@ -284,6 +307,15 @@ code {
     margin-left: 0;
     margin-right: 0;
   }
+
+  .info1 {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+  }
 }
 
 /* width */
@@ -324,7 +356,7 @@ code {
 }
 
 .checkButton{
-  margin-left: 93%;
+  margin-left: 83%;
   margin-top: 0px;
   margin-bottom: 0px;
   height: 70px;
@@ -500,6 +532,25 @@ code {
   }
 }
 
+.info1{
+  transform:
+    rotate3d(0,0,0,0)
+    rotate(0deg);
+  box-shadow:
+    2em 4em 6em -2em rgba(0,0,0,.5),
+    1em 2em 3.5em -2.5em rgba(0,0,0,.5);
+  transition:
+    transform .4s ease,
+    box-shadow .4s ease;
+  border-radius: .5em;
+
+  &:hover {
+    transform:
+      rotate3d(0,0,0,0deg)
+      rotate(0deg);
+  }
+}
+
 .modal{
   position: relative;
   z-index: 1;
@@ -509,6 +560,7 @@ code {
 .message{
   color: #d0cccc;
   font-weight: 300;
+  background: transparent;
 }
 
 .imgCheck{
@@ -516,6 +568,7 @@ code {
   height:47px;
   width:47px;
   margin-right:20px;
+  background: transparent;
 }
 
 .helpTitle{
@@ -586,4 +639,90 @@ code {
   align-items: center;
   flex-direction: row;
   align-content: space-between;
+}
+
+.heading{
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  margin:0;
+  margin-bottom: 10px;
+}
+
+.rideCard{
+  padding: 10px 10px 10px 10px;
+  height:90px;
+  width: 100%;
+  color:white;
+}
+
+.innerCard{
+  position:relative;
+  background-color: #7c8891;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  color:white;
+  font-size:15px;
+  padding:5px 10px 5px 10px;
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.innerCard:hover{
+  background: black;
+  .boldR{
+    color:rgb(191, 217, 252);
+  }
+}
+
+.left{
+  position: absolute;
+  top:10px;
+  left:10px;
+  display: block;
+  text-align: left;
+}
+
+.middle{
+  position: absolute;
+  top:10px;
+  text-align: center;
+  left:47%;
+  display: block;
+}
+
+.right{
+  position: absolute;
+  top:10px;
+  right:10px;
+  display: block;
+  text-align: right;
+}
+
+.boldR{
+  font-weight: bold;
+  font-size:10px;
+  color:black;
+}
+
+.boldW{
+  font-weight: bold;
+  font-size:10px;
+  color:white;
+}
+
+.car{
+  height:70px;
+}
+
+.blank{
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.carMove{
+  height:70px;
 }

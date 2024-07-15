@@ -1,8 +1,10 @@
 // import Logo from '../Images/edit.jpeg';
 import { useState } from "react";
 import check from '../Images/goldCheckMarkImg.png';
-import checkFinal from '../Images/checkFinal2.gif';
+import checkFinalFinal from '../Images/checkFinal2.gif';
+import carMoveFinal from '../Images/carMoveFinal.gif';
 import Modal from "./Modal";
+import Ride from './Ride';
 
 const Profile=()=>{
     const url="https://cdn.racingnews365.com/Riders/Hamilton/_570x570_crop_center-center_none/f1_2024_lh_mer_lg.png?v=1708704226";
@@ -17,6 +19,15 @@ const Profile=()=>{
     const [profile,setProfile]=useState({email,phone,city,code,car,type,color,no});
     const [change,setChange]=useState(false);
     const [modal,setModal]=useState(false);
+    const [rides, setRides]=useState([
+      {"source":"Gurgaon", "destination":"Delhi", "start":"6:00 AM", "end":"6:47 AM", "date":"1 Jan", "id":"1"},
+      {"source":"Delhi", "destination":"Chandigarh", "start":"7:00 AM", "end":"11:00 AM", "date":"1 Jan", "id":"2"},
+      {"source":"Bangalore", "destination":"Chennai", "start":"10:00 AM", "end":"6:47 AM", "date":"2 Jan", "id":"3"},
+      {"source":"Bombay", "destination":"Goa", "start":"11:00 AM", "end":"2:00 PM", "date":"3 Jan", "id":"4"},
+      {"source":"Noida", "destination":"Delhi", "start":"2:00 PM", "end":"6:47 PM", "date":"4 Jan", "id":"5"},
+      {"source":"Bombay", "destination":"Chennai", "start":"11:00 AM", "end":"2:00 PM", "date":"7 Jan", "id":"6"},
+    ])
+    console.log(typeof rides);
 
     const submitHandler=()=>{
       setChange(false);
@@ -65,74 +76,8 @@ const Profile=()=>{
                     </div>
                 </div>
             </div>
-            {/* <div className="info"> */}
-
-                {/* jfkdlsjfkdslj */}
-                {/* <div className="outerContainer"> */}
-                {/* <span className="title">Basic Info </span> */}
-                {/* <div className="content1"> */}
-                {/* <div className="qs">
-                    Email       
-                    <br></br>
-                    Phone Number 
-                    <br></br>
-                    City
-                    <br></br>
-                    Pin Code
-                    <br></br>
-                    {/* Aadhar Card */}
-                    {/* <br></br> */}
-                {/*</div> */}
-                {/* <div className="form">
-                    lhamilton@gmail.com
-                    <br></br>
-                    9998887779 
-                    <br></br>
-                    Chicago
-                    <br></br>
-                    998899
-                    <br></br>
-                    <span className="greenBold">Verified</span>
-                    <br></br>
-                </div> */}
-                {/* <div className="form">
-                    <input type="text" className="formActual" value={email}></input>
-                    <br></br>
-                    <input type="text" className="formActual" value={phone}></input>
-                    {/* 9998887779  */}
-                    {/* <br></br> */}
-                    {/* <input type="text" className="formActual" value={city}></input> */}
-                    {/* Chicago */}
-                    {/* <br></br> */}
-                    {/* <input type="text" className="formActual" value={code}></input> */}
-                    {/* 998899 */}
-                    {/* <br></br> */}
-                    {/* <span className="greenBold">Verified</span> */}
-                    {/* <br></br> */}
-                {/* </div> */}
-                {/* </div> */}
-                {/* <button className="edit"> Edit </button> */}
-                {/* </div>  */}
-                {/* <div className="outerContainer">
-                <span className="title">Past rides</span>
-                <div className="content3">
-                <div className="qs">
-                   
-                </div>
-                {/* <div className="form">
-
-                </div> */}
-                {/* </div> */}
-                {/* </div>  */}
-            {/* </div> */}
         <div className="info">
-                {/* <div className="ques">
-                Email:
-                Phone Number:
-                City:
-                Code:
-                </div> */}
-        <form className="text-center pb-7 pt-7 mr-7 ml-7 border-solid-white">
+        <form className="text-center pb-4 pt-7 mr-7 ml-7 border-solid-white">
             <div className="text-2xl text-white-900 mb-4 font-bold ">Personal Info</div>
             <div className="w-full py-2  flex items-center gap-2 rounded-md">
             <div className="w-half h-full flex flex-col md:flex-row m-auto">
@@ -191,7 +136,7 @@ const Profile=()=>{
             </div>
             </div>
             </form>
-            <form className="text-center pb-7 pt-7 mr-7 ml-7 border-solid-white">
+            <form className="text-center pb-4 pt-7 mr-7 ml-7 border-solid-white">
             <div className="text-2xl text-white-900 mb-4 font-bold ">Vehicle Info</div>
             <div className="w-full py-2  flex items-center gap-2 rounded-md">
             <div className="w-half h-full flex flex-col md:flex-row m-auto ">
@@ -250,13 +195,29 @@ const Profile=()=>{
             </div>
             </div>
             </form>
-            <button className="checkButton" onClick={submitHandler}> {change && <img src={check} className="check"></img>}</button>
+            {change && <button className="checkButton" onClick={submitHandler}> <img src={check} className="check"></img></button>}
+            {!change &&
+              <div className="blank"> 
+                <img src={carMoveFinal} className="carMove"></img> 
+                
+              </div>
+            }
+        </div>
+        <div className="info1">
+          <div className="heading">Completed Trips</div>
+          <ul>
+          {rides.map(ride => 
+            <li key={ride["id"]}>
+              <Ride ride={ride}/>
+            </li>
+          )}
+          </ul>
         </div>
         </div>
         {modal && <div className="modal">
           <Modal open={modal}>
             <div className="message">
-              <img src={checkFinal} className="imgCheck"></img>
+              <img src={checkFinalFinal} className="imgCheck"></img>
               Profile saved
             </div>
           </Modal>
