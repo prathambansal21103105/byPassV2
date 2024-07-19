@@ -211,7 +211,7 @@ const Profile=()=>{
               <Ride ride={ride}/>
             </li>
           )}
-          </ul>
+            </ul>
         </div>
         </div>
         {modal && <div className="modal">
