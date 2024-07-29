@@ -3,7 +3,7 @@ import HomeLayout from "./components/HomeLayout";
 import Filler from "./components/Filler";
 import Help from "./components/Help";
 import Login from "./components/Login";
-import Register from "./components/Resgister";
+import Register from "./components/Register";
 import UserLayout from "./components/UserLayout";
 import Browse from "./components/Browse";
 import Profile from "./components/Profile";

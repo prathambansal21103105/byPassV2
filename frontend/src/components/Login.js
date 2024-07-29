@@ -1,10 +1,33 @@
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { NavLink } from "react-router-dom";
+// import { userActions } from "../store/user";
+// import { useDispatch } from 'react-redux';
+
 const Login = () => {
+  // const dispatch=useDispatch();
   const controls = useAnimation();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const submitHandler=(event)=>{
+    event.preventDefault();
+    const credentials={
+      email,
+      password
+    }
+    console.log(credentials);
+    //validate credentials httpcall and fetch data
+
+    // store user data in redux store along with past rides of the user
+    // dispatch(userActions.setUser(
+      //   {
+      //     "username":username,
+      //     "email":email,
+      //     "phone":mobileNumber,
+      //     "password":password
+      //   }
+      // ));
+  }
   return (
     <motion.div
       animate={controls}
@@ -36,7 +59,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Enter Email"
-                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-yellow-400"
+                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white border-b-2 border-yellow-400"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -53,13 +76,13 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="********"
-                className="border-b-2 border-yellow-400  text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300"
+                className="border-b-2 border-yellow-400  text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
           <div className="flex item-center w-full">
-            <button className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none bg-yellow-400 px-12 py-2 text-white rounded-md hover:shadow-md duration-500 transition-all ease-in-out hover:bg-yellow-600 font-semibold mt-8">
+            <button className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none bg-yellow-400 px-12 py-2 text-white rounded-md hover:shadow-md duration-500 transition-all ease-in-out hover:bg-yellow-600 font-semibold mt-8" onClick={submitHandler}>
               Login
             </button>
           </div>

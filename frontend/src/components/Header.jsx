@@ -27,7 +27,7 @@ const Header = () => {
 
         <div className="md:flex gap-5 justify-center items-center hidden">
           <NavLink
-            to="/search"
+            to="/user/browse"
             className={({ isActive }) =>
               isActive ? `bg-yellow-600 rounded-full border-yellow-600` :`font-semibold text-yellow-400 border-yellow-400`
             }

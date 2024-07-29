@@ -5,6 +5,7 @@ import checkFinalFinal from '../Images/checkFinal2.gif';
 import carMoveFinal from '../Images/carMoveFinal.gif';
 import Modal from "./Modal";
 import Ride from './Ride';
+import { useSelector } from "react-redux";
 
 const Profile=()=>{
     const url="https://cdn.racingnews365.com/Riders/Hamilton/_570x570_crop_center-center_none/f1_2024_lh_mer_lg.png?v=1708704226";
@@ -27,6 +28,11 @@ const Profile=()=>{
       {"source":"Noida", "destination":"Delhi", "start":"2:00 PM", "end":"6:47 PM", "date":"4 Jan", "id":"5"},
       {"source":"Bombay", "destination":"Chennai", "start":"11:00 AM", "end":"2:00 PM", "date":"7 Jan", "id":"6"},
     ])
+    const user = useSelector((state)=>{
+      return state.user;
+    })
+    console.log("In Profile page");
+    console.log(user);
     console.log(typeof rides);
 
     const submitHandler=()=>{

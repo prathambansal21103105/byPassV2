@@ -1,6 +1,8 @@
 import React from "react";
 import { motion, useAnimation } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 const HomePage = () => {
+  const navigator = useNavigate();
   const controls = useAnimation();
   return (
     <motion.div
@@ -43,11 +45,12 @@ const HomePage = () => {
           Join us today and be part of the movement to make every ride count
         </p>
       </div>
-      <div className="grid grid-cols-2 ml-0 gap-56">
+      <div className="grid grid-cols-2 ml-0 gap-56 cursor-pointer">
         <div></div>
         <motion.div
           whileTap={{ scale: 0.8 }}
           className="bg-yellow-400 rounded-lg p-3 text-gray-900 font-bold shadow-yellow-200 hover:shadow-sm hover:drop-shadow-md hover:shadow-yellow-400"
+          onClick={()=>{navigator("/user/browse")}}
         >
           Get Started
         </motion.div>

@@ -109,7 +109,7 @@ code {
   margin:auto;
   margin-top: 3% !important;
   text-align: center;
-  background-color: white;
+  background-color: black;
   margin-right:30px;
   /* text-align: center; */
 }
@@ -644,7 +644,7 @@ code {
 .heading{
   font-size: 24px;
   font-weight: bold;
-  color: black;
+  color: #aab0c3;
   margin:0;
   margin-bottom: 10px;
 }
@@ -725,4 +725,199 @@ code {
 
 .carMove{
   height:70px;
+}
+
+.browse{
+  display: flex;
+  justify-content: center;
+  height: max-content;
+  margin-bottom: 70px;
+}
+
+.searchBar{
+  margin-top:70px;
+  width:80%;
+  color:goldenrod;
+  /* border:solid; */
+  border-radius:20px;
+  height:50px;
+  /* border-color: white; */
+  justify-content: space-evenly;
+  background-color: #333232;
+  /* background: white; */
+}
+
+.bar{
+  width:30%;
+  padding:10px;
+  padding-left: 20px;
+  background: transparent;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-color:#7c8891;
+  color:white;
+}
+.barNew{
+  width: 30%;
+  padding: 10px;
+  background: transparent;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-left: solid;
+  border-color: gray;
+  color:white;
+}
+
+.barNewNew{
+  width: 25%;
+  padding: 10px;
+  background: transparent;
+  /* border-top-right-radius: 20px; */
+  /* border-bottom-right-radius: 20px; */
+  border-left: solid;
+  border-right: solid;
+  border-color: gray;
+  color:white;
+}
+
+.searchButton{
+  width: 15%;
+  height: 100%;
+  /* background-color: hsl(202.06deg 100% 48% / 50%);
+   */
+  background-color: goldenrod;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color:white;
+  font-weight: bold;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.searchImg{
+  height: 50px;
+  width: 50px;
+  margin-top: 70px;
+  margin-left: 10px;
+}
+
+.rideList{
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 130px;
+}
+
+.infoCard{
+  width: max-content;
+  height: 123px;
+  background-color: #18191a;
+  border: solid;
+  border-radius: 30px;
+  border-color: black;
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.carName{
+  font-size: small;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  color: #b6a8a8;
+}
+
+.city{
+  color:white;
+  margin-left: 100px;
+}
+
+.infoCard:hover {
+  border-color: white;
+}
+
+.infoRide {
+  padding: 0px;
+  width: 700px;
+  height:120px;
+  border:solid;
+  border-radius: 30px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding: 10px;
+  padding-top:12px;
+  padding-left: 20px;
+  border-color: black;
+}
+
+.driver{
+  background-color: #18191a;
+  width: 15%;
+}
+
+.carH{
+  height: 120px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px; 
+}
+
+.publish{
+  margin-left: 40px;
+  padding-top:50px;
+}
+
+.searchBar2{
+  position:relative;
+  background-color: white;
+  width:max-content;
+  top:-10px;
+  border-radius: 10px;
+}
+
+.bar2{
+  width:50%;
+  padding:10px;
+  background: transparent;
+  color:black;
+  
+}
+
+.barNew2{
+  width:50%;
+  padding:10px;
+  background: #2a3031;
+  color:white;
+  border:solid;
+  border-left-color: black;
+  border-top: transparent;
+  border-right: transparent;
+  border-bottom: transparent;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+input:focus{
+  outline: none;
+}
+
+.browseOuter{
+  margin-top: 170px;
+  text-align: center;
+  height: fit-content;
+}
+
+.browseHeading{
+  font-size: 40px;
+  font-weight: 500;
+  color:#ccc8be;
+}
+
+
+
+.outerMost{
+  height: fit-content;
+  min-height: 100vh;
 }

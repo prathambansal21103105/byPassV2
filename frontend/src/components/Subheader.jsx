@@ -6,7 +6,7 @@ const Subheader = () => {
     <div className="flex justify-center items-center mt-3 md:hidden">
       <div className="flex gap-2 justify-center items-center">
         <NavLink
-          to="/search"
+          to="/user/browse"
           className={({ isActive }) =>
             isActive
               ? `bg-yellow-600 rounded-full border-yellow-600`

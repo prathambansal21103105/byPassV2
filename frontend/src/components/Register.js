@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { NavLink } from "react-router-dom";
+
 const Register = () => {
   const controls = useAnimation();
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [mobileNumber, setmobileNumber] = useState();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const submitHandler=(event)=>{
+    event.preventDefault();
+    console.log("In Register");
+    console.log({username,email,password,mobileNumber});
+    // http call persist new user
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setMobileNumber("");
+  }
   return (
     <motion.div
       animate={controls}
@@ -41,7 +52,8 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Enter Username"
-                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-yellow-400"
+                val={username}
+                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white border-b-2 border-yellow-400"
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -58,8 +70,9 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Enter Mobile No. "
-                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-yellow-400"
-                onChange={(e) => setmobileNumber(e.target.value)}
+                val={mobileNumber}
+                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white border-b-2 border-yellow-400"
+                onChange={(e) => setMobileNumber(e.target.value)}
               />
             </div>
           </div>
@@ -72,7 +85,8 @@ const Register = () => {
               <input
                 type="email"
                 placeholder="Enter Email"
-                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300 border-b-2 border-yellow-400"
+                val={email}
+                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white border-b-2 border-yellow-400"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -89,19 +103,19 @@ const Register = () => {
               <input
                 type="password"
                 placeholder="********"
-                className="border-b-2 border-yellow-400  text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-yellow-300"
+                className="border-b-2 border-yellow-400  text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
           <div className="flex item-center w-full">
-            <button className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none bg-yellow-400 px-12 py-2 text-white rounded-md hover:shadow-md duration-500 transition-all ease-in-out hover:bg-yellow-600 font-semibold mt-8">
+            <button className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none bg-yellow-400 px-12 py-2 text-white rounded-md hover:shadow-md duration-500 transition-all ease-in-out hover:bg-yellow-600 font-semibold mt-8" onClick={submitHandler}>
               Register
             </button>
           </div>
         </form>
         <br></br>
-        <p className="text-yellow-400">Don't have an account?</p>
+        <p className="text-yellow-400">Do have an account?</p>
         <ul>
           <NavLink to="/login">
             <button className="m-0 text-yellow-200 hover:underline">
