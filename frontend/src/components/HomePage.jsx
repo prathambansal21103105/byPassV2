@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { ridesActions } from "../store/rides";
+
+const fetchRides = async(data) => {
+  const res=await fetch("http://localhost:4000/fetchRides",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+    },
+    body:JSON.stringify(data)
+  })
+  const resBody=res.json();
+  console.log(resBody);
+  return resBody;
+}
+
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const id = useSelector((state)=>{
+    return state.user.id;
+  });
+  const login = useSelector((state)=>{
+    return state.login.login;
+  })
   const navigator = useNavigate();
   const controls = useAnimation();
+  // if(login){
+  //   const userRides = fetchRides(id);
+  //   dispatch(ridesActions.setHostRides({userRides:userRides.driver}));
+  //   dispatch(ridesActions.setGuestRides({guestRides:userRides.passenger}));
+  // }
   return (
     <motion.div
       animate={controls}

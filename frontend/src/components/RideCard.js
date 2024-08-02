@@ -1,24 +1,26 @@
 import car from '../Images/carBlack.webp';
 
-const RideCard=()=>{
+const RideCard=({data})=>{
     return(
         <div className="infoCard">
-            <div className="infoRide">
-            <p className="carName">Swift Dzire DL 03UA 8989</p>
-            <ol class="relative border-s border-white-200 dark:border-gray-700">                  
-            <li class="mb-3 ms-4 ">
-                <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-greenBold dark:bg-greenBold"></div>
-                <time class="mb-1 text-sm font-normal leading-none text-white-400 dark:text-white-500">6:35am, Wed 3 Aug <span className="city">Gurugram</span><span className="city">Lewis Hamilton</span></time>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        <div className="infoRide">
+            <div className="carName">
+                <div className='first1'>{data.carName}</div> 
+                <div className='space'>{data.carNumber}</div>
+                <div className="space1">{`${data.driverRating} stars`}</div>
+            </div>
+            <ol className="relative border-s border-white-200 dark:border-gray-700 mb-0 pb-0 borderBottom">
+            <li className="mb-3 ms-4">
+                <div className="absolute w-3 h-3 bg-gray-200 rounded-full -start-1.5 border border-white dark:border-greenBold dark:bg-greenBold"></div>
+                <time className="mb-1 text-sm font-normal leading-none text-white-400 dark:text-white-500 carName1"><div className='first'>{data.startDate} </div><div className="space">{data.source}</div><div className="space1">{data.driverName}</div></time>
             </li>
-            <li class="mb-3 ms-4 ">
-                <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-red-900 dark:bg-red-700"></div>
-                <time class="mb-1 text-sm font-normal leading-none text-white-400 dark:text-white-500">8:35am, Wed 3 Aug <span className="city">Chandigarh</span><span className="city">5 stars</span></time>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            <li className="mb-3 ms-4">
+                <div className="absolute w-3 h-3 bg-gray-200 rounded-full -start-1.5 border border-white dark:border-red-900 dark:bg-red-700"></div>
+                <time className="mb-1 text-sm font-normal leading-none text-white-400 dark:text-white-500 carName2"><div className='first'>{data.destinationDate}</div> <div className="space">{data.destination}</div><div className="space1">{data.driverContact}</div></time>
             </li>
             </ol>
-            </div>
-            <img className='carH' src={car}></img>
+        </div>
+        <img className='carH' src={car}></img>
         </div>
     );
 }

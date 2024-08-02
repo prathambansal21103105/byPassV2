@@ -1,15 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+export const initialRideState = { 
+  rides:[], 
+  hostRides:[], 
+  guestRides:[],
+  search:false 
+};
 const ridesSlice = createSlice({
   name: "rides",
-  initialState: { availabe: [] },
+  initialState: initialRideState,
   reducers: {
-    async fetchRides(state) {
-      //fetch rides call to backend
-      const res = await fetch("http://localhost:4000/fetchRides");
-      const data = await res.json();
-      state.availabe = data;
+    setSearch(state,action){
+      state.search=action.payload.search;
     },
+    setRides(state,action){
+      state.rides=action.payload.rides;
+    },
+    setHostRides(state,action){
+      state.hostRides=action.payload.hostRides;
+      console.log(action);
+    },
+    setGuestRides(state,action){
+      state.guestRides=action.payload.guestRides;
+      console.log(action);
+    }
   },
 });
 

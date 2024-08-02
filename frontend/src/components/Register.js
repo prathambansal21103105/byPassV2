@@ -2,23 +2,59 @@ import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { NavLink } from "react-router-dom";
 
-const Register = () => {
+const createUser = async(data) => {
+  const res=await fetch("http://localhost:4000/register",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+    },
+    body:JSON.stringify(data)
+  })
+  const resBody=res.json();
+  return resBody;
+}
+
+const Register = ({modalHandler}) => {
   const controls = useAnimation();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
-  const submitHandler=(event)=>{
+
+  const submitHandler=async(event)=>{
     event.preventDefault();
+    const data={
+      "username":username,
+      "email":email,
+      "password":password,
+      "mobileNumber":mobileNumber,
+      "city":"",
+      "code":"",
+      "car":"",
+      "type":"",
+      "color":"",
+      "carNum":"",
+      "rating":"5",
+      "_id":"",
+    };
     console.log("In Register");
-    console.log({username,email,password,mobileNumber});
-    // http call persist new user
+    console.log(data);
+    const resBody = await createUser(data);
+    console.log(resBody);
     setUsername("");
     setEmail("");
     setPassword("");
     setMobileNumber("");
+    if(resBody["message"]==="user created"){
+      console.log("YES");
+      modalHandler("User created!");
+    }
+    // http call persist new user
+    
   }
+
   return (
+    <>
     <motion.div
       animate={controls}
       onMouseEnter={() => controls.stop()}
@@ -35,7 +71,7 @@ const Register = () => {
           },
         })
       }
-      className="text-yellow-300 items-center p-12 flex flex-col gap-20"
+      className="text-yellow-300 items-center p-12 flex flex-col gap-20 form1"
     >
       {" "}
       <p className="text-[2.5rem] font-bold mx-auto mt-12">Register</p>
@@ -52,7 +88,7 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Enter Username"
-                val={username}
+                value={username}
                 className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white border-b-2 border-yellow-400"
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -70,7 +106,7 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Enter Mobile No. "
-                val={mobileNumber}
+                value={mobileNumber}
                 className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white border-b-2 border-yellow-400"
                 onChange={(e) => setMobileNumber(e.target.value)}
               />
@@ -85,7 +121,7 @@ const Register = () => {
               <input
                 type="email"
                 placeholder="Enter Email"
-                val={email}
+                value={email}
                 className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white border-b-2 border-yellow-400"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -103,6 +139,7 @@ const Register = () => {
               <input
                 type="password"
                 placeholder="********"
+                value={password}
                 className="border-b-2 border-yellow-400  text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white"
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -127,6 +164,7 @@ const Register = () => {
       </div>
       <div className="w-full h-full"></div>
     </motion.div>
+    </>
   );
 };
 

@@ -1,10 +1,20 @@
 import React from "react";
 import Logo from "../Images/logo1.png";
 import { motion } from "framer-motion";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import classes from "./Navbar.module.css";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userInitialState } from "../store/user";
+import { initialLoginState } from "../store/login";
+import { userActions } from "../store/user";
+import { loginActions } from "../store/login";
+
 const Header = () => {
-  const navigate = useNavigate();
+  const dispatch=useDispatch();
+  const login=useSelector((state)=>{
+    return state.login.login;
+  })
+  console.log(login);
   return (
     // <div className="head">
       <div className="p-3 bg-black-900 rounded-lg shadow-sm flex w-full h-full items-center justify-between border-b-white-400 border-b-1 shadow-white-100">
@@ -39,7 +49,7 @@ const Header = () => {
               className="flex gap-1 items-center justify-center border-2 bg-black-900 rounded-full  border-yellow-600 p-2 cursor-pointer hover:bg-cardOverlay"
             >
               <i class="fi fi-rr-search text-white-400"></i>
-              <div className="font-semibold text-white-400">
+              <div className="font-semibold text-white-400 p-0.3">
                 Search for A Ride{" "}
               </div>
             </motion.div>
@@ -57,7 +67,7 @@ const Header = () => {
               className="flex gap-1 items-center justify-center border-2 bg-black-900 rounded-full  border-yellow-600 p-2 cursor-pointer hover:bg-cardOverlay"
             >
               <i class="fi fi-rr-search text-white-400"></i>
-              <div className="font-semibold text-white-400">
+              <div className="font-semibold text-white-400 p-0.3">
                 Publish for a ride{" "}
               </div>
             </motion.div>
@@ -95,7 +105,7 @@ const Header = () => {
                 <div className={`font-semibold text-white-400`}>Help </div>
               </motion.div>
             </NavLink>
-            <NavLink
+            { !login && <NavLink
               to="/login"
               className={({ isActive }) =>
                 isActive ? `bg-yellow-600 rounded-full` : undefined
@@ -109,8 +119,28 @@ const Header = () => {
               >
                 <div className={`font-semibold text-white-400`}>Login </div>
               </motion.div>
-            </NavLink>
-            <NavLink
+            </NavLink>}
+
+            {login && <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? `bg-yellow-600 rounded-full` : undefined
+              }
+              id="nav"
+              onClick={()=>{
+                dispatch(userActions.setUser(userInitialState));
+                dispatch(loginActions.setLogin(initialLoginState));
+              }}
+              end
+            >
+              <motion.div
+                whileTap={{ scale: 0.8 }}
+                className="rounded-full hover:bg-cardOverlay p-2 items-center justify-center cursor-pointer"
+              >
+                <div className={`font-semibold text-white-400`}>Logout </div>
+              </motion.div>
+            </NavLink>}
+            {!login && <NavLink
               to="/register"
               className={({ isActive }) =>
                 isActive ? `bg-yellow-600 rounded-full` : undefined
@@ -124,8 +154,8 @@ const Header = () => {
               >
                 <div className={`font-semibold text-white-400`}>Signup </div>
               </motion.div>
-            </NavLink>
-            <NavLink
+            </NavLink>}
+            { login && <NavLink
               to="/user/profile"
               className={({ isActive }) =>
                 isActive ? `bg-yellow-600 rounded-full` : undefined
@@ -139,7 +169,7 @@ const Header = () => {
               >
                 <div className={`font-semibold text-white-400`}>Profile </div>
               </motion.div>
-            </NavLink>
+            </NavLink>}
           </motion.div>
         </div>
       </div>

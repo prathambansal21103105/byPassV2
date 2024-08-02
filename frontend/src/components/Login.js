@@ -1,34 +1,52 @@
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { NavLink } from "react-router-dom";
-// import { userActions } from "../store/user";
-// import { useDispatch } from 'react-redux';
+import { NavLink, redirect } from "react-router-dom";
+import { userActions } from "../store/user";
+import { loginActions } from "../store/login";
+import { useDispatch } from 'react-redux';
 
-const Login = () => {
-  // const dispatch=useDispatch();
+const validateUser = async(data) => {
+  const res=await fetch("http://localhost:4000/login",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+    },
+    body:JSON.stringify(data)
+  })
+  const resBody=res.json();
+  console.log(resBody);
+  return resBody;
+}
+
+const Login = ({modalHandler}) => {
+  const dispatch=useDispatch();
   const controls = useAnimation();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const submitHandler=(event)=>{
+  const submitHandler=async(event)=>{
     event.preventDefault();
     const credentials={
       email,
       password
     }
     console.log(credentials);
+    setEmail("");
+    setPassword("");
     //validate credentials httpcall and fetch data
-
-    // store user data in redux store along with past rides of the user
-    // dispatch(userActions.setUser(
-      //   {
-      //     "username":username,
-      //     "email":email,
-      //     "phone":mobileNumber,
-      //     "password":password
-      //   }
-      // ));
+    const resBody = await validateUser(credentials);
+    if(resBody["message"]==="logged in"){
+      console.log("YES");
+      console.log("loginReturn");
+      // console.log(resBody.);
+      modalHandler("Logged-in");
+      console.log(resBody);
+      dispatch(userActions.setUser(resBody.user));
+      dispatch(loginActions.setLogin({login:true}));
+      // navigator("/user/browse");
+    }
   }
   return (
+    <>
     <motion.div
       animate={controls}
       onMouseEnter={() => controls.stop()}
@@ -45,7 +63,7 @@ const Login = () => {
           },
         })
       }
-      className="text-yellow-300 items-center p-12 flex flex-col gap-24"
+      className="text-yellow-300 items-center p-12 flex flex-col gap-24 form1"
     >
       {" "}
       <p className="text-[2.5rem] font-bold mx-auto mt-12">Login</p>
@@ -59,7 +77,8 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Enter Email"
-                className="w-full h-full text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white border-b-2 border-yellow-400"
+                className="w-full h-full text-lg bg-transparent outline-none text-white border-b-2 border-yellow-400"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -77,6 +96,7 @@ const Login = () => {
                 type="password"
                 placeholder="********"
                 className="border-b-2 border-yellow-400  text-lg bg-transparent outline-none  placeholder:text-yellow-50 text-white"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -100,6 +120,7 @@ const Login = () => {
       </div>
       <div className="w-full h-full"></div>
     </motion.div>
+    </>
   );
 };
 

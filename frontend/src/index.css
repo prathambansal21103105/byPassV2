@@ -124,9 +124,9 @@ code {
   border-radius: 30px;
   margin: auto;
   border: dashed;
-  border-color: gold;
-  background: goldenrod;
-  color:black;
+  border-color: transparent;
+  background: black;
+  color: white;
 }
 
 .content1{
@@ -211,7 +211,7 @@ code {
 .bold{
   /* color:rgb(82, 82, 82); */
   font-weight: bold;
-  color:#201908;
+  color:#ffffff;
 }
 
 .img1{
@@ -228,7 +228,7 @@ code {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: bold;
   /* color:#00ffffa8; */
-  color: #433d0b;
+  color: goldenrod;
 }
 
 .image1{
@@ -813,26 +813,32 @@ code {
 
 .infoCard{
   width: max-content;
+  max-width: 1000px;
   height: 123px;
   background-color: #18191a;
   border: solid;
   border-radius: 30px;
   border-color: black;
   display: flex;
+  flex-direction: row;
+  /* flex-direction: column; */
   margin-bottom: 30px;
+  /* column-gap: 10px; */
 }
 
 .carName{
   font-size: small;
   font-weight: bold;
-  margin-left: 20px;
+  /* padding-left: 20px; */
   margin-bottom: 10px;
   color: #b6a8a8;
+  display: flex;
+  flex-direction: row;
 }
 
 .city{
   color:white;
-  margin-left: 100px;
+  margin-left: 140px;
 }
 
 .infoCard:hover {
@@ -844,13 +850,18 @@ code {
   width: 700px;
   height:120px;
   border:solid;
-  border-radius: 30px;
+  border-radius: 40px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   padding: 10px;
   padding-top:12px;
   padding-left: 20px;
-  border-color: black;
+  border-color: transparent;
+  border-right-color: black;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  overflow: hidden;
 }
 
 .driver{
@@ -871,7 +882,7 @@ code {
 
 .searchBar2{
   position:relative;
-  background-color: white;
+  background-color: rgb(240, 239, 239);
   width:max-content;
   top:-10px;
   border-radius: 10px;
@@ -882,7 +893,6 @@ code {
   padding:10px;
   background: transparent;
   color:black;
-  
 }
 
 .barNew2{
@@ -920,4 +930,55 @@ input:focus{
 .outerMost{
   height: fit-content;
   min-height: 100vh;
+}
+
+.form1 input::placeholder{
+  color:rgba(245, 245, 245, 0.286);
+}
+
+.form2 input::placeholder{
+  color:rgba(243, 241, 241, 0.623);
+}
+
+.labelDiv{
+  width: 85px;
+  text-align: left;
+}
+
+.space{
+  margin-left:100px;
+  width:100px;
+  text-align: left;
+}
+
+.space1{
+  margin-left: 130px;
+  width:140px;
+  text-align: left;
+  display: flex;
+}
+
+.first{
+  width:140px;
+}
+
+.first1{
+  width: 140px;
+  margin-left: 19px;
+}
+
+.carName1{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+.carName2{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+.borderBottom{
+  height: 45px;
 }

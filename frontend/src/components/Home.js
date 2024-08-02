@@ -11,7 +11,6 @@ const Home = () => {
   const location = useLocation();
   let router=location.pathname;
   let bgImg=loginImg;
-  console.log(router);
   if(router.includes("login")){
     bgImg=loginImg;
   }

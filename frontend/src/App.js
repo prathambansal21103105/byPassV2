@@ -11,8 +11,20 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SearchPage from "./components/SearchPage";
 import PublishRide from "./components/PublishRide";
 import HomePage from "./components/HomePage";
+import { useState } from "react";
 
 const App = () => {
+  const [modal,setModal]=useState(false);
+  const [text,setText]=useState("");
+  // const navigator = useNavigate();
+  const modalHandler=(text)=>{
+    console.log("YESYES");
+    console.log(text);
+    setText(text);
+    setModal(true);
+    // navigator("/user/browse");
+    setTimeout(()=>{setModal(false)},3000);
+  }
   const router = createBrowserRouter([
     {
       path: "/",
@@ -20,13 +32,12 @@ const App = () => {
       children: [
         {
           path: "",
-          element: <HomeLayout />,
+          element: <HomeLayout modal={modal} text={text}/>,
           children: [
             { path: "", element: <HomePage /> },
-            { path: "login", element: <Login /> },
-            { path: "register", element: <Register /> },
-            { path: "search", element: <SearchPage /> },
-            { path: "publish", element: <PublishRide /> },
+            { path: "login", element: <Login modalHandler={modalHandler}/> },
+            { path: "register", element: <Register modalHandler={modalHandler}/> },
+            { path: "publish", element: <PublishRide modalHandler={modalHandler}/> },
           ],
         },
         {

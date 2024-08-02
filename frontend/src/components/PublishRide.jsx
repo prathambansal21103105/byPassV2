@@ -1,6 +1,79 @@
 import React from "react";
 import { motion} from "framer-motion";
-const PublishRide = () => {
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
+const createRide = async(data) => {
+  const res=await fetch("http://localhost:4000/createRide",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+    },
+    body:JSON.stringify(data)
+  })
+  const resBody=res.json();
+  console.log(resBody);
+  return resBody;
+}
+
+export const getDay = (date) => {
+  const weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const dat = new Date(date.substring(0,10));
+  const day = weekday[dat.getDay()];
+  return day;
+}
+
+export const getMonth = (date) => {
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const dat = new Date(date.substring(0,10));
+  const month = months[dat.getMonth()];
+  return month;
+}
+
+const PublishRide = ({modalHandler}) => {
+  const state = useSelector((state)=>{
+    return state.user;
+  })
+  const[source,setSource] = useState("");
+  const[destination,setDestination] = useState("");
+  const[sourceTime,setSourceTime] = useState("2024-01-01T00:00");
+  const[destinationTime,setDestinationTime] = useState("2024-01-01T00:00");
+  
+  const submitHandler=async()=>{
+    const startDay = getDay(sourceTime);
+    const endDay = getDay(destinationTime);
+    const startTime = sourceTime.substring(11,16);
+    const endTime = destinationTime.substring(11,16);
+    const startMonth = getMonth(sourceTime);
+    const endMonth = getMonth(destinationTime);
+    const startDate = (sourceTime[8]==='0') ? sourceTime[9] : sourceTime.substring(8,10);
+    const endDate = (destinationTime[8]==='0') ? destinationTime[9] : destinationTime.substring(8,10);
+    const sDate = startTime + ", " + startDay + " " + startDate + " " +startMonth;
+    const eDate = endTime + ", " + endDay + " " + endDate + " " +endMonth;
+    const rideData = {
+      startDate: sDate,
+      destinationDate: eDate,
+      source: source,
+      destination: destination,
+      driverName: state.username,
+      driverRating: state.rating,
+      driverId: state._id,
+      passengerId: "",
+      carName: state.car,
+      carNumber: state.carNum,
+      carType: state.type,
+      driverContact: state.mobileNumber,
+      passengerContact: "",
+    };
+    const resBody = await createRide(rideData);
+    if(resBody.message === "ride published"){
+      modalHandler("Ride published");
+    }
+    setSource("");
+    setDestination("");
+    setSourceTime("2024-01-01T00:00");
+    setDestinationTime("2024-01-01T00:00");
+  }
   return <div>
     <div className="text-yellow-300 items-center block  mt-20 ml-10"
     >
@@ -25,12 +98,16 @@ const PublishRide = () => {
             type="name"
             placeholder="Pick-up"
             className="bar2"
+            onChange={(e)=>{setSource(e.target.value)}}
+            value={source}
             // value={searchInput}
             />
             <input
-            type="date"
+            type="dateTime-local"
             placeholder="Time"
             className="barNew2"
+            onChange={(e)=>{setSourceTime(e.target.value)}}
+            value={sourceTime}
             // value={searchInput}
             />
         </div>
@@ -47,12 +124,16 @@ const PublishRide = () => {
             type="name"
             placeholder="Destination"
             className="bar2"
+            onChange={(e)=>{setDestination(e.target.value)}}
+            value={destination}
             // value={searchInput}
             />
             <input
-            type="date"
+            type="dateTime-local"
             placeholder="Time"
             className="barNew2"
+            onChange={(e)=>{setDestinationTime(e.target.value);console.log(e.target.value);}}
+            value={destinationTime}
             // value={searchInput}
             />
         </div>
@@ -61,7 +142,7 @@ const PublishRide = () => {
         <motion.div
           whileTap={{ scale: 0.8 }}
           className="bg-white cursor-pointer rounded-lg p-3 text-black font-bold shadow-black-200 hover:shadow-sm hover:drop-shadow-md hover:shadow-black-400 w-max ml-10 mt-10"
-          // onClick={()=>{navigator("/user/browse")}}
+          onClick={submitHandler}
         >
           Publish ride
         </motion.div>
