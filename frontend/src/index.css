@@ -101,7 +101,7 @@ code {
   flex-wrap: wrap; */
   padding-top:1.75rem;
   width:27%;
-  height:100%;
+  height:620px;
   /* color:#FACC15; */
   font-size: 20px;
   display: flex;
@@ -112,6 +112,11 @@ code {
   background-color: black;
   margin-right:30px;
   /* text-align: center; */
+}
+
+.rideLists{
+  overflow-y:scroll;
+  scrollbar-width: none!important;
 }
 
 .ques{
@@ -558,7 +563,7 @@ code {
 }
 
 .message{
-  color: #d0cccc;
+  color: #d0cccc!important;
   font-weight: 300;
   background: transparent;
 }
@@ -688,7 +693,7 @@ code {
   position: absolute;
   top:10px;
   text-align: center;
-  left:47%;
+  left:40%;
   display: block;
 }
 
@@ -981,4 +986,140 @@ input:focus{
 
 .borderBottom{
   height: 45px;
+}
+
+.arrow{
+  position: relative;
+  background-color: white;
+  transform: rotateY(180deg);
+  height:30px;
+  width: 30px;
+  margin-left: 15px;
+  bottom: -7px;
+  border-radius: 4px;
+}
+
+.arrow1{
+  position: relative;
+  background-color: white;
+  height:30px;
+  width: 30px;
+  margin-left: 15px;
+  bottom: -7px;
+  border-radius: 4px;
+}
+
+.arrow1 img{
+  height: 30px;
+  width: 30px;
+}
+
+.arrow1 :hover{
+  background-color: goldenrod;
+  border-radius: 4px;
+}
+
+.arrow img{
+  height: 30px;
+  width: 30px;
+}
+
+.arrow :hover{
+  background-color: goldenrod;
+  border-radius: 4px;
+}
+
+.message1{
+  color: #d0cccc!important;
+  font-weight: 300;
+  height:max-content;
+  width:500px;
+  border: solid;
+  border-radius: 10px;
+  padding:10px;
+  border-color: rgb(56, 55, 55);
+  background: rgba(0, 0, 0,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  column-gap: 0px;
+  row-gap: 0px;
+  padding-top: 13px;
+  padding-bottom: 60px;
+}
+
+.boldRide{
+  margin-left: 38%;
+  font-size: 20px;
+  background-color: transparent;
+  color: white;
+}
+
+.cross{
+  position: relative;
+  left:73%;
+  height:30px;
+  width:30px;
+  margin-left:100px;
+  background-color: black;
+  border-radius: 100%;
+  display: flex;
+}
+
+.cross img{
+  filter: invert(100%);
+}
+
+.cross :hover{
+  background-color: rgb(70, 70, 70);
+  border-radius: 100%;
+  filter:invert(100%);
+}
+
+.flexRow{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.carH1{
+  height: 120px;
+  width: 170px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  margin-bottom:10px
+}
+
+.entity1{
+  color: white;
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+}
+
+.sub{
+  color:goldenrod;
+  width: 23%;
+  text-align: left;
+  margin-right: 5px;
+  margin-left: 30%;
+}
+
+.sub1{
+  width: 50%;
+  text-align:left;
+  margin-left: 5px;
+}
+
+.bookBtn{
+  width: 25%;
+  height: 30px;
+  /* background-color: hsl(202.06deg 100% 48% / 50%);
+   */
+  background-color: goldenrod;
+  border-radius: 10px;
+  color:white;
+  font-weight: bold;
+  margin-top: 20px;
 }

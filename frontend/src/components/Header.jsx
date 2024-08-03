@@ -8,6 +8,7 @@ import { userInitialState } from "../store/user";
 import { initialLoginState } from "../store/login";
 import { userActions } from "../store/user";
 import { loginActions } from "../store/login";
+import { initialRideState, ridesActions } from "../store/rides";
 
 const Header = () => {
   const dispatch=useDispatch();
@@ -130,6 +131,7 @@ const Header = () => {
               onClick={()=>{
                 dispatch(userActions.setUser(userInitialState));
                 dispatch(loginActions.setLogin(initialLoginState));
+                dispatch(ridesActions.setSearch(initialRideState.search));
               }}
               end
             >

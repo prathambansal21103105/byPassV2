@@ -5,18 +5,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { ridesActions } from "../store/rides";
 
-const fetchRides = async(data) => {
-  const res=await fetch("http://localhost:4000/fetchRides",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-    },
-    body:JSON.stringify(data)
-  })
-  const resBody=res.json();
-  console.log(resBody);
-  return resBody;
-}
+
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -28,11 +17,6 @@ const HomePage = () => {
   })
   const navigator = useNavigate();
   const controls = useAnimation();
-  // if(login){
-  //   const userRides = fetchRides(id);
-  //   dispatch(ridesActions.setHostRides({userRides:userRides.driver}));
-  //   dispatch(ridesActions.setGuestRides({guestRides:userRides.passenger}));
-  // }
   return (
     <motion.div
       animate={controls}

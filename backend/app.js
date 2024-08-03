@@ -12,6 +12,16 @@ app.use(express.json());
 mongoose.connect(url).then(()=>{ 
   const User = require("./models/User");
   const Ride = require("./models/Ride");
+  const fetchRides = async(id,flag) => {
+    if(flag){
+      const driver = await Ride.find({driverId:{$eq: id}});
+      return driver;
+    }
+    else{
+      const passenger = await Ride.find({passengerId:{$eq: id}});
+      return passenger;
+    }
+  }
   app.get("/",(req,res)=>{
     
   })
@@ -64,8 +74,8 @@ mongoose.connect(url).then(()=>{
   app.post("/fetchRides", async(req,res)=>{
     const data = req.body;
     console.log(data);
-    const driver = await Ride.find({driverId:{$eq: data.id}});
-    const passenger = await Ride.find({passengerId:{$eq: data.id}});
+    const driver = await fetchRides(data.id,true);
+    const passenger = await fetchRides(data.id,false);
     console.log(driver);
     console.log(passenger);
     res.json({"message":"rides fetched", "driver":driver, "passenger":passenger});
@@ -74,7 +84,7 @@ mongoose.connect(url).then(()=>{
   app.post("/searchRides", async(req,res)=>{
     const data = req.body;
     console.log(data);
-    const rides = await Ride.find({source:{$eq: data.source}, destination:{$eq: data.destination}});
+    const rides = await Ride.find({source:{$eq: data.source}, destination:{$eq: data.destination}, passengerId:{$eq: ""}});
     console.log(rides);
     res.json({"message":"search completed", "rides":rides});
   })
@@ -86,8 +96,23 @@ mongoose.connect(url).then(()=>{
     console.log(id);
     res.json({"message":"ride published"});
   })
+
+  app.post("/bookRide", async(req,res)=>{
+    const data = req.body;
+    const rideId = data.rideId;
+    const passengerId = data.passengerId;
+    const passengerContact = data.passengerContact;
+    console.log(data);
+    const val = await Ride.updateOne({_id:rideId},{$set:{passengerId:passengerId, passengerContact:passengerContact}});
+    if(val.modifiedCount === 1){
+      res.json({"message":"booking confirmed"});
+    }
+    else{
+      res.json({"message":"error"});
+    }
+  })
   
-  app.listen(port, () => {
+  app.listen(port, async() => {
     console.log("Server is running on port:" + port);
   });
 }).catch(()=> console.log("Error Connecting to Database...."))

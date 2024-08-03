@@ -4,6 +4,24 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { ridesActions } from "../store/rides";
 import { getDay,getMonth } from "./PublishRide";
+import RideInfoModal from "./RideInfoModal";
+import checkFinalFinal from '../Images/checkFinal2.gif';
+import cross from "../Images/cross2.png";
+import car from '../Images/carBlack.webp';
+import Modal from "./Modal";
+
+const bookRide = async(data) => {
+    const res=await fetch("http://localhost:4000/bookRide",{
+        method:"POST",
+        headers:{
+        "Content-Type":"application/json",
+        },
+        body:JSON.stringify(data)
+    })
+    const resBody=await res.json();
+    console.log(resBody);
+    return resBody;
+}
 
 const searchRides = async(data) => {
     const res=await fetch("http://localhost:4000/searchRides",{
@@ -13,13 +31,15 @@ const searchRides = async(data) => {
         },
         body:JSON.stringify(data)
     })
-    const resBody=res.json();
+    const resBody=await res.json();
     console.log(resBody);
     return resBody;
 }
 
 const Browse=()=>{
     const dispatch = useDispatch();
+    const [modal,setModal] = useState(false);
+    const [ride,setRide] = useState("");
     const login=useSelector((state)=>{
         return state.login.login;
     })
@@ -29,11 +49,15 @@ const Browse=()=>{
     const rides=useSelector((state)=>{
         return state.rides.rides;
     })
+    const user=useSelector((state)=>{
+        return state.user;
+    })
     // const [searchResults, setSearchResults] = useState(rides);
     const searchResults = rides;
     const [source,setSource]=useState("");
     const [destination,setDestination]=useState("");
     const [date,setDate]=useState("2024-01-01T00:00");
+    const [confirmModal,setConfirmModal]=useState(false);
     const submitHandler=async()=>{
         const date1 = date;
         const startDay = getDay(date1);
@@ -56,6 +80,21 @@ const Browse=()=>{
         setSource("");
         setDestination("");
         setDate("2024-01-01T00:00");
+    }
+    const bookHandler = async(rideId) => {
+        setModal(false);
+        const data = {
+            rideId:rideId,
+            passengerId:user._id,
+            passengerContact:user.mobileNumber,
+        }
+        const resBody=await bookRide(data);
+        if(resBody.message === "booking confirmed"){
+            console.log("YES123");
+            setConfirmModal(true);
+            dispatch(ridesActions.setSearch({search:false}));
+            setTimeout(()=>{setConfirmModal(false)},3000);
+        }
     }
     return(
     <>
@@ -95,8 +134,41 @@ const Browse=()=>{
     </div>
     { login && search && <div className="rideList">
         {console.log("YES")}
-        {searchResults.map((ride)=> <RideCard data={ride}/>)}
+        {searchResults.map((ride)=> <div onClick={()=>{setModal(true);setRide(ride);console.log(ride)}}><RideCard data={ride}/></div>)}
     </div>}
+    </div>
+    <div className="modal">
+        <RideInfoModal open={modal}>
+            <div className="message1">
+                <div className="flexRow">
+                    <button onClick={()=>{setModal(false)}} className="cross"><img src={cross}></img></button>
+                </div>
+                <img className="carH1" src={car}></img>
+                <p className="entity1"><div className="sub">Car:</div> {ride.carName}</p>
+                <p className="entity1"><div className="sub">Car Number:</div> {ride.carNumber}</p>
+                <p className="entity1"><div className="sub">Car Type:</div> {ride.carType}</p>
+                <p className="entity1"><div className="sub">Driver:</div> {ride.driverName} </p>
+                <p className="entity1"><div className="sub">Driver Contact:</div> {ride.driverContact}</p>
+                <p className="entity1"><div className="sub">From:</div> {ride.source} </p>
+                <p className="entity1"><div className="sub">At:</div> {ride.startDate} </p>
+                <p className="entity1"><div className="sub">To:</div> {ride.destination} </p>
+                <p className="entity1"><div className="sub">At:</div> {ride.destinationDate} </p>
+                <p className="entity1"><div className="sub">Rating:</div> {ride.driverRating} stars </p>
+                {user._id !== ride.driverId && <button
+                    className="bookBtn hover:bg-yellow-600"
+                    onClick={()=>{bookHandler(ride._id)}}
+                    >Book
+                </button>}
+            </div>
+        </RideInfoModal>
+        {confirmModal && <div className="modal">
+          <Modal open={confirmModal}>
+            <div className="message">
+              <img src={checkFinalFinal} className="imgCheck"></img>
+              Booking Confirmed
+            </div>
+          </Modal>
+        </div>}
     </div>
     </>
     );
