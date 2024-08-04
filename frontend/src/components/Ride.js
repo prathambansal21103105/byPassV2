@@ -1,7 +1,7 @@
 import carImg from '../Images/carFinal1.png';
 
 const Ride=({ride})=>{
-    console.log(ride);
+    // console.log(ride);
     const startTime = ride.startDate.substring(0,5);
     const endTime = ride.destinationDate.substring(0,5);
     let date = ride.startDate;

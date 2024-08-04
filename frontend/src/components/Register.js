@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const createUser = async(data) => {
-  const res=await fetch("http://localhost:4000/register",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
+  // const res=await fetch("http://localhost:4000/register",{
+  //   method:"POST",
+  //   headers:{
+  //     "Content-Type":"application/json",
+  //   },
+  //   body:JSON.stringify(data)
+  // })
+  const res = await axios.post("http://localhost:4000/register", data, {
+    headers: {
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(data)
-  })
-  const resBody=res.json();
-  return resBody;
+    // withCredentials: true, // Include credentials like cookies
+  });
+  // const resBody=res.json();
+  // return resBody;
+  return res.data;
 }
 
 const Register = ({modalHandler}) => {
@@ -35,18 +43,17 @@ const Register = ({modalHandler}) => {
       "color":"",
       "carNum":"",
       "rating":"5",
-      "_id":"",
     };
-    console.log("In Register");
-    console.log(data);
+    // console.log("In Register");
+    // console.log(data);
     const resBody = await createUser(data);
-    console.log(resBody);
+    // console.log(resBody);
     setUsername("");
     setEmail("");
     setPassword("");
     setMobileNumber("");
     if(resBody["message"]==="user created"){
-      console.log("YES");
+      // console.log("YES");
       modalHandler("User created!");
     }
     // http call persist new user

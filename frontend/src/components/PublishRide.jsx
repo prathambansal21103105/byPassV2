@@ -2,18 +2,27 @@ import React from "react";
 import { motion} from "framer-motion";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const createRide = async(data) => {
-  const res=await fetch("http://localhost:4000/createRide",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
+  // const res=await fetch("http://localhost:4000/createRide",{
+  //   method:"POST",
+  //   headers:{
+  //     "Content-Type":"application/json",
+  //     credentials: "include",
+  //   },
+  //   credentials: "include",
+  //   body:JSON.stringify(data)
+  // })
+  const res = await axios.post("http://localhost:4000/createRide", data, {
+    headers: {
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(data)
-  })
-  const resBody=res.json();
-  console.log(resBody);
-  return resBody;
+    withCredentials: true, // Include credentials like cookies
+  });
+  // const resBody=res.json();
+  // console.log(resBody);
+  return res.data;
 }
 
 export const getDay = (date) => {
@@ -50,20 +59,22 @@ const PublishRide = ({modalHandler}) => {
     const endDate = (destinationTime[8]==='0') ? destinationTime[9] : destinationTime.substring(8,10);
     const sDate = startTime + ", " + startDay + " " + startDate + " " +startMonth;
     const eDate = endTime + ", " + endDay + " " + endDate + " " +endMonth;
+    console.log("user");
+    console.log(state);
     const rideData = {
       startDate: sDate,
       destinationDate: eDate,
       source: source,
       destination: destination,
+      passengerId: "",
+      passengerContact: "",
       driverName: state.username,
       driverRating: state.rating,
       driverId: state._id,
-      passengerId: "",
       carName: state.car,
       carNumber: state.carNum,
       carType: state.type,
       driverContact: state.mobileNumber,
-      passengerContact: "",
     };
     const resBody = await createRide(rideData);
     if(resBody.message === "ride published"){

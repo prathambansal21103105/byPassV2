@@ -17,11 +17,11 @@ const ridesSlice = createSlice({
     },
     setHostRides(state,action){
       state.hostRides=action.payload.hostRides;
-      console.log(action);
+      // console.log(action);
     },
     setGuestRides(state,action){
       state.guestRides=action.payload.guestRides;
-      console.log(action);
+      // console.log(action);
     }
   },
 });

@@ -7,33 +7,52 @@ import { getDay,getMonth } from "./PublishRide";
 import RideInfoModal from "./RideInfoModal";
 import checkFinalFinal from '../Images/checkFinal2.gif';
 import cross from "../Images/cross2.png";
-import car from '../Images/carBlack.webp';
 import Modal from "./Modal";
+import axios from "axios";
+import sedan from '../Images/carBlack.webp';
+import luxury from '../Images/luxury3.png';
+import miniVan from '../Images/truck.webp';
 
 const bookRide = async(data) => {
-    const res=await fetch("http://localhost:4000/bookRide",{
-        method:"POST",
-        headers:{
-        "Content-Type":"application/json",
+    // const res=await fetch("http://localhost:4000/bookRide",{
+    //     method:"POST",
+    //     headers:{
+    //     "Content-Type":"application/json",
+    //     credentials: "include",
+    //     },
+    //     credentials: "include",
+    //     body:JSON.stringify(data)
+    // })
+    const res = await axios.post("http://localhost:4000/bookRide", data, {
+        headers: {
+            "Content-Type": "application/json",
         },
-        body:JSON.stringify(data)
-    })
-    const resBody=await res.json();
-    console.log(resBody);
-    return resBody;
+        withCredentials: true, // Include credentials like cookies
+    });
+    // const resBody=await res.json();
+    // console.log(resBody);
+    return res.data;
 }
 
 const searchRides = async(data) => {
-    const res=await fetch("http://localhost:4000/searchRides",{
-        method:"POST",
-        headers:{
-        "Content-Type":"application/json",
+    // const res=await fetch("http://localhost:4000/searchRides",{
+    //     method:"POST",
+    //     headers:{
+    //     "Content-Type":"application/json",
+    //     credentials: "include",
+    //     },
+    //     credentials: "include",
+    //     body:JSON.stringify(data)
+    // })
+    const res = await axios.post("http://localhost:4000/searchRides", data, {
+        headers: {
+            "Content-Type": "application/json",
         },
-        body:JSON.stringify(data)
-    })
-    const resBody=await res.json();
-    console.log(resBody);
-    return resBody;
+        withCredentials: true, // Include credentials like cookies
+    });
+    // const resBody=await res.json();
+    // console.log(resBody);
+    return res.data;
 }
 
 const Browse=()=>{
@@ -52,6 +71,13 @@ const Browse=()=>{
     const user=useSelector((state)=>{
         return state.user;
     })
+    let carType=sedan;
+    if(ride.carType === "Luxury"){
+        carType = luxury;
+    }
+    if(ride.carType === "Mini Van"){
+        carType = miniVan;
+    }
     // const [searchResults, setSearchResults] = useState(rides);
     const searchResults = rides;
     const [source,setSource]=useState("");
@@ -72,7 +98,7 @@ const Browse=()=>{
         }
         const resBody = await searchRides(searchQuery);
         if(resBody.message === "search completed"){
-            console.log(resBody.rides);
+            // console.log(resBody.rides);
             // setSearchResults(resBody.rides);
             dispatch(ridesActions.setSearch({search:true}));
             dispatch(ridesActions.setRides({rides:resBody.rides}))
@@ -90,7 +116,7 @@ const Browse=()=>{
         }
         const resBody=await bookRide(data);
         if(resBody.message === "booking confirmed"){
-            console.log("YES123");
+            // console.log("YES123");
             setConfirmModal(true);
             dispatch(ridesActions.setSearch({search:false}));
             setTimeout(()=>{setConfirmModal(false)},3000);
@@ -133,8 +159,8 @@ const Browse=()=>{
     </div>
     </div>
     { login && search && <div className="rideList">
-        {console.log("YES")}
-        {searchResults.map((ride)=> <div onClick={()=>{setModal(true);setRide(ride);console.log(ride)}}><RideCard data={ride}/></div>)}
+        {/* {console.log("YES")} */}
+        {searchResults.map((ride)=> <div onClick={()=>{setModal(true);setRide(ride);}}><RideCard data={ride}/></div>)}
     </div>}
     </div>
     <div className="modal">
@@ -143,7 +169,7 @@ const Browse=()=>{
                 <div className="flexRow">
                     <button onClick={()=>{setModal(false)}} className="cross"><img src={cross}></img></button>
                 </div>
-                <img className="carH1" src={car}></img>
+                <img className="carH1" src={carType}></img>
                 <p className="entity1"><div className="sub">Car:</div> {ride.carName}</p>
                 <p className="entity1"><div className="sub">Car Number:</div> {ride.carNumber}</p>
                 <p className="entity1"><div className="sub">Car Type:</div> {ride.carType}</p>

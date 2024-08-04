@@ -1,6 +1,16 @@
-import car from '../Images/carBlack.webp';
+import sedan from '../Images/carBlack.webp';
+import luxury from '../Images/luxury3.png';
+import miniVan from '../Images/truck.webp';
 
 const RideCard=({data})=>{
+    console.log(data);
+    let carType=sedan;
+    if(data.carType === "Luxury"){
+        carType = luxury;
+    }
+    if(data.carType === "Mini Van"){
+        carType = miniVan;
+    }
     return(
         <div className="infoCard">
         <div className="infoRide">
@@ -20,7 +30,7 @@ const RideCard=({data})=>{
             </li>
             </ol>
         </div>
-        <img className='carH' src={car}></img>
+        <img className='carH' src={carType}></img>
         </div>
     );
 }

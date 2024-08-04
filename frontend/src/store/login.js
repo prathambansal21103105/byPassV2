@@ -10,7 +10,7 @@ const loginSlice = createSlice({
   reducers: {
     setLogin(state, action) {
         state.login=action.payload.login;
-        console.log(action);
+        // console.log(action);
     },
   },
 });

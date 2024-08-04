@@ -13,39 +13,45 @@ import { ridesActions } from "../store/rides";
 import arrowImage from '../Images/arrowImg.svg';
 import RideInfoModal from "./RideInfoModal";
 import cross from "../Images/cross2.png";
-import carImg from '../Images/carBlack.webp';
+import sedan from '../Images/carBlack.webp';
+import luxury from '../Images/luxury3.png';
+import miniVan from '../Images/truck.webp';
+import axios from "axios";
 
 const lastN = (arr, n = 1) => arr.slice(-n);
 
 const fetchRides = async(data) => {
-  const res=await fetch("http://localhost:4000/fetchRides",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
+  // console.log(data);
+  console.log("fetch ride call");
+  console.log(data);
+  const res = await axios.post("http://localhost:4000/fetchRides", data, {
+    headers: {
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(data)
-  })
-  const resBody=await res.json();
-  console.log(resBody);
-  return resBody;
+    withCredentials: true, // Include credentials like cookies
+  });
+  return res.data;
 }
 
 const updateUser=async(data)=>{
-  const res=await fetch("http://localhost:4000/updateUser",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
+ 
+  const res = await axios.post("http://localhost:4000/updateUser", data, {
+    headers: {
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(data)
-  })
-  const resBody = await res.json();
-  return resBody;
+    withCredentials: true, // Include credentials like cookies
+  });
+  return res.data;
 }
 
 const Profile=()=>{
     const dispatch=useDispatch();
+    let carType = sedan;
     const user = useSelector((state)=>{
       return state.user;
+    })
+    const login = useSelector((state)=>{
+      return state.login;
     })
     const host = useSelector((state)=>{
       return state.rides.hostRides;
@@ -66,9 +72,15 @@ const Profile=()=>{
     const [change,setChange]=useState(false);
     const [modal,setModal]=useState(false);
     const [flag,setFlag]=useState(false);
-    const [rides, setRides]=useState([]);
+    // const [rides, setRides]=useState([]);
     const [selectedRide, setSelectedRide]=useState("");
     const [confirmModal, setConfirmModal]=useState(false);
+    if(selectedRide.carType === "Luxury"){
+      carType = luxury;
+    }
+    if(selectedRide.carType === "Mini Van"){
+      carType = miniVan;
+    }
     let headingRides = "";
     if(flag){
       headingRides = "Published Rides";
@@ -76,30 +88,24 @@ const Profile=()=>{
     else{
       headingRides = "Booked Rides";
     }
-    const val=[
-      {"source":"Gurgaon", "destination":"Delhi", "start":"6:00 AM", "end":"6:47 AM", "date":"1 Jan", "id":"1"},
-      {"source":"Delhi", "destination":"Chandigarh", "start":"7:00 AM", "end":"11:00 AM", "date":"1 Jan", "id":"2"},
-      {"source":"Bangalore", "destination":"Chennai", "start":"10:00 AM", "end":"6:47 AM", "date":"2 Jan", "id":"3"},
-      {"source":"Bombay", "destination":"Goa", "start":"11:00 AM", "end":"2:00 PM", "date":"3 Jan", "id":"4"},
-      {"source":"Noida", "destination":"Delhi", "start":"2:00 PM", "end":"6:47 PM", "date":"4 Jan", "id":"5"},
-      {"source":"Bombay", "destination":"Chennai", "start":"11:00 AM", "end":"2:00 PM", "date":"7 Jan", "id":"6"},
-    ];
+  
     useEffect(()=>{
+      
       const fetchData = async() => {
         const userRides = await fetchRides({id:user._id});
         const driverRides = userRides.driver;
         const passengerRides = userRides.passenger;
         const message = userRides.message;
-        console.log(driverRides);
-        console.log(passengerRides);
+        // console.log(driverRides);
+        // console.log(passengerRides);
         let x=0;
         let y=0
         if(driverRides){
-          console.log("YES");
+          // console.log("YES");
           x = (driverRides.length > 6) ? 6:driverRides.length;
         }
         if(passengerRides){
-          console.log("NO");
+          // console.log("NO");
           y = (passengerRides.length > 6) ? 6:passengerRides.length;
         }
         let driver=[];
@@ -109,30 +115,35 @@ const Profile=()=>{
           // driver = driverRides.slice(0,x);
           driver = driverRides;
           console.log(driver);
+          // console.log(driver);
         }
         if(passengerRides){
           // passenger = lastN(passengerRides,y);
           // passenger = passengerRides.slice(0,y);
           passenger = passengerRides;
-          console.log(passenger);
+          // console.log(passenger);
         }
         if(message === "rides fetched"){
-          console.log(driver);
-          setRides(driver);
+          console.log("rides fetched");
+          // console.log(driver);
           dispatch(ridesActions.setHostRides({hostRides:driver}));
           dispatch(ridesActions.setGuestRides({guestRides:passenger}));
         }
       }
-      fetchData();
-    },[]);
+      // setTimeout(()=>{
+      if(login && user.id!==""){
+        console.log("useEffect");
+        console.log(login);
+        console.log(user);
+        fetchData();
+      }
+      // },2000)
+    },[user]);
     
-    console.log("In Profile page");
-    console.log(user);
-    console.log(typeof rides);
 
     const submitHandler=async()=>{
       setChange(false);
-      const newState = {email,mobileNumber,city,code,car,type,color,carNum:no,username:user.username,rating:user.rating,password:user.password};
+      const newState = {email,mobileNumber,city,code,car,type,color,carNum:no,username:user.username,rating:user.rating,password:user.password,_id:user._id};
       let flag=0;
       for(const key in profile){
         if(profile[key] !== newState[key]){
@@ -140,17 +151,18 @@ const Profile=()=>{
         }
       }
       if(flag==1){
-        console.log(profile);
-        console.log(newState);
+        // console.log(profile);
+        // console.log(newState);
         // redux data update
-        console.log("state changed");
+        // console.log("state changed");
       }
+      console.log(newState);
+      setProfile(newState);
+      setModal(true);
+      dispatch(userActions.setUser(newState));
       const resBody = await updateUser(newState);
-      console.log(resBody);
+      // console.log(resBody);
       if(resBody.message === "user updated"){
-        setProfile(newState);
-        setModal(true);
-        dispatch(userActions.setUser(newState));
         setTimeout(()=>{setModal(false)},3000);
       }
     }
@@ -360,7 +372,7 @@ const Profile=()=>{
                 <div className="flexRow">
                     <button onClick={()=>{setConfirmModal(false)}} className="cross"><img src={cross}></img></button>
                 </div>
-                <img className="carH1" src={carImg}></img>
+                <img className="carH1" src={carType}></img>
                 <p className="entity1"><div className="sub">Car:</div> {selectedRide.carName}</p>
                 <p className="entity1"><div className="sub">Car Number:</div> {selectedRide.carNumber}</p>
                 <p className="entity1"><div className="sub">Car Type:</div> {selectedRide.carType}</p>

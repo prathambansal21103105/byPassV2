@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../Images/logo1.png";
 import { motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import { Form, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { userInitialState } from "../store/user";
@@ -9,13 +9,14 @@ import { initialLoginState } from "../store/login";
 import { userActions } from "../store/user";
 import { loginActions } from "../store/login";
 import { initialRideState, ridesActions } from "../store/rides";
+import { destroySession } from "../App";
 
 const Header = () => {
   const dispatch=useDispatch();
   const login=useSelector((state)=>{
     return state.login.login;
   })
-  console.log(login);
+  // console.log(login);
   return (
     // <div className="head">
       <div className="p-3 bg-black-900 rounded-lg shadow-sm flex w-full h-full items-center justify-between border-b-white-400 border-b-1 shadow-white-100">
@@ -128,10 +129,13 @@ const Header = () => {
                 isActive ? `bg-yellow-600 rounded-full` : undefined
               }
               id="nav"
-              onClick={()=>{
+              onClick={async()=>{
+                // setTimeout(()=>{
                 dispatch(userActions.setUser(userInitialState));
                 dispatch(loginActions.setLogin(initialLoginState));
                 dispatch(ridesActions.setSearch(initialRideState.search));
+                await destroySession();
+              // },3000);
               }}
               end
             >

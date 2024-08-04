@@ -4,18 +4,16 @@ import { NavLink, redirect } from "react-router-dom";
 import { userActions } from "../store/user";
 import { loginActions } from "../store/login";
 import { useDispatch } from 'react-redux';
+import axios from "axios";
 
 const validateUser = async(data) => {
-  const res=await fetch("http://localhost:4000/login",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
+  const res = await axios.post("http://localhost:4000/login", data, {
+    headers: {
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(data)
-  })
-  const resBody=res.json();
-  console.log(resBody);
-  return resBody;
+    withCredentials: true, // Include credentials like cookies
+  });
+  return res.data;
 }
 
 const Login = ({modalHandler}) => {
@@ -29,17 +27,17 @@ const Login = ({modalHandler}) => {
       email,
       password
     }
-    console.log(credentials);
+    // console.log(credentials);
     setEmail("");
     setPassword("");
     //validate credentials httpcall and fetch data
     const resBody = await validateUser(credentials);
     if(resBody["message"]==="logged in"){
-      console.log("YES");
-      console.log("loginReturn");
+      // console.log("YES");
+      // console.log("loginReturn");
       // console.log(resBody.);
       modalHandler("Logged-in");
-      console.log(resBody);
+      // console.log(resBody);
       dispatch(userActions.setUser(resBody.user));
       dispatch(loginActions.setLogin({login:true}));
       // navigator("/user/browse");
