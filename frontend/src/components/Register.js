@@ -4,22 +4,19 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 const createUser = async(data) => {
-  // const res=await fetch("http://localhost:4000/register",{
-  //   method:"POST",
-  //   headers:{
-  //     "Content-Type":"application/json",
-  //   },
-  //   body:JSON.stringify(data)
-  // })
-  const res = await axios.post("http://localhost:4000/register", data, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // withCredentials: true, // Include credentials like cookies
-  });
-  // const resBody=res.json();
-  // return resBody;
-  return res.data;
+  try{
+    const res = await axios.post("http://localhost:4000/register", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // withCredentials: true, // Include credentials like cookies
+    });
+    return res.data;
+  }
+  catch(e){
+    console.log("error caught in creating user " + e);
+  }
+  return {};
 }
 
 const Register = ({modalHandler}) => {

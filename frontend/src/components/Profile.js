@@ -22,26 +22,37 @@ const lastN = (arr, n = 1) => arr.slice(-n);
 
 const fetchRides = async(data) => {
   // console.log(data);
-  console.log("fetch ride call");
-  console.log(data);
-  const res = await axios.post("http://localhost:4000/fetchRides", data, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    withCredentials: true, // Include credentials like cookies
-  });
-  return res.data;
+  try{
+    console.log("fetch ride call");
+    console.log(data);
+    const res = await axios.post("http://localhost:4000/fetchRides", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true, // Include credentials like cookies
+    });
+    return res.data;
+  }
+  catch(e){
+    console.log("error in fetching rides" + e);
+  }
+  return {};
 }
 
 const updateUser=async(data)=>{
- 
-  const res = await axios.post("http://localhost:4000/updateUser", data, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    withCredentials: true, // Include credentials like cookies
-  });
-  return res.data;
+  try{
+    const res = await axios.post("http://localhost:4000/updateUser", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true, // Include credentials like cookies
+    });
+    return res.data;
+  }
+  catch(e){
+    console.log("error caught " + e);
+  }
+  return {};
 }
 
 const Profile=()=>{
@@ -114,13 +125,15 @@ const Profile=()=>{
           // driver = lastN(driverRides,x);
           // driver = driverRides.slice(0,x);
           driver = driverRides;
-          console.log(driver);
+          driver.reverse();
+          // console.log(driver);
           // console.log(driver);
         }
         if(passengerRides){
           // passenger = lastN(passengerRides,y);
           // passenger = passengerRides.slice(0,y);
           passenger = passengerRides;
+          passenger.reverse();
           // console.log(passenger);
         }
         if(message === "rides fetched"){

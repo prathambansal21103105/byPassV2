@@ -12,47 +12,55 @@ import axios from "axios";
 import sedan from '../Images/carBlack.webp';
 import luxury from '../Images/luxury3.png';
 import miniVan from '../Images/truck.webp';
+// import io from 'socket.io-client';
+// const socket = io.connect("http://localhost:4000");
 
-const bookRide = async(data) => {
-    // const res=await fetch("http://localhost:4000/bookRide",{
-    //     method:"POST",
-    //     headers:{
-    //     "Content-Type":"application/json",
-    //     credentials: "include",
-    //     },
-    //     credentials: "include",
-    //     body:JSON.stringify(data)
-    // })
-    const res = await axios.post("http://localhost:4000/bookRide", data, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-        withCredentials: true, // Include credentials like cookies
-    });
-    // const resBody=await res.json();
-    // console.log(resBody);
-    return res.data;
+export const bookRide = async(data) => {
+    try{
+        const res = await axios.post("http://localhost:4000/bookRide", data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            withCredentials: true, // Include credentials like cookies
+        });
+        return res.data;
+    }
+    catch(e){
+        console.log("error in booking ride" + e);
+    }
+    return {};
+}
+
+const sendRequest = async(notification) => {
+    try{
+        const res = await axios.post("http://localhost:4000/createNotification", notification, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            withCredentials: true, // Include credentials like cookies
+        });
+        return res.data;
+    }
+    catch(e){
+        console.log("error in creating notification" + e);
+    }
+    return {};
 }
 
 const searchRides = async(data) => {
-    // const res=await fetch("http://localhost:4000/searchRides",{
-    //     method:"POST",
-    //     headers:{
-    //     "Content-Type":"application/json",
-    //     credentials: "include",
-    //     },
-    //     credentials: "include",
-    //     body:JSON.stringify(data)
-    // })
-    const res = await axios.post("http://localhost:4000/searchRides", data, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-        withCredentials: true, // Include credentials like cookies
-    });
-    // const resBody=await res.json();
-    // console.log(resBody);
-    return res.data;
+    try{
+        const res = await axios.post("http://localhost:4000/searchRides", data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            withCredentials: true, // Include credentials like cookies
+        });
+        return res.data;
+    }
+    catch(e){
+        console.log("error in searching ride" + e);
+    }
+    return {};
 }
 
 const Browse=()=>{
@@ -85,27 +93,29 @@ const Browse=()=>{
     const [date,setDate]=useState("2024-01-01T00:00");
     const [confirmModal,setConfirmModal]=useState(false);
     const submitHandler=async()=>{
-        const date1 = date;
-        const startDay = getDay(date1);
-        const startTime = date1.substring(11,16);
-        const startMonth = getMonth(date1);
-        const startDate = (date1[8]==='0') ? date1[9] : date1.substring(8,10);
-        const sDate = startTime + ", " + startDay + " " + startDate + " " +startMonth;
-        const searchQuery = {
-            source: source,
-            destination: destination,
-            startDate: sDate,
-        }
-        const resBody = await searchRides(searchQuery);
-        if(resBody.message === "search completed"){
-            // console.log(resBody.rides);
-            // setSearchResults(resBody.rides);
-            dispatch(ridesActions.setSearch({search:true}));
-            dispatch(ridesActions.setRides({rides:resBody.rides}))
+        if(login){
+            const date1 = date;
+            const startDay = getDay(date1);
+            const startTime = date1.substring(11,16);
+            const startMonth = getMonth(date1);
+            const startDate = (date1[8]==='0') ? date1[9] : date1.substring(8,10);
+            const sDate = startTime + ", " + startDay + " " + startDate + " " +startMonth;
+            const searchQuery = {
+                source: source,
+                destination: destination,
+                startDate: sDate,
+            }
+            const resBody = await searchRides(searchQuery);
+            if(resBody.message === "search completed"){
+                // console.log(resBody.rides);
+                // setSearchResults(resBody.rides);
+                dispatch(ridesActions.setSearch({search:true}));
+                dispatch(ridesActions.setRides({rides:resBody.rides}))
+            }
         }
         setSource("");
         setDestination("");
-        setDate("2024-01-01T00:00");
+        setDate("2024-01-01T00:00")
     }
     const bookHandler = async(rideId) => {
         setModal(false);
@@ -114,9 +124,33 @@ const Browse=()=>{
             passengerId:user._id,
             passengerContact:user.mobileNumber,
         }
-        const resBody=await bookRide(data);
-        if(resBody.message === "booking confirmed"){
-            // console.log("YES123");
+        // console.log(user);
+        let notification = {};
+        notification.source = ride.source;
+        notification.destination = ride.destination;
+        notification.startDate = ride.startDate;
+        notification.destinationDate = ride.destinationDate;
+        notification.driverRating = ride.driverRating;
+        notification.driverName = ride.driverName;
+        notification.driverContact = ride.driverContact;
+        notification.driverId = ride.driverId;
+        notification.carName = ride.carName;
+        notification.carNumber = ride.carNumber;
+        notification.carType = ride.carType;
+        notification.passengerName=user.username;
+        notification.passengerId=user._id;
+        notification.passengerContact=user.mobileNumber;
+        notification.rideId=ride._id;
+        notification.status="";
+        // console.log(notification);
+        // const resBody=await bookRide(data,notification);
+        const resBody=await sendRequest(notification);
+        // socket.emit("request_ride", notification);
+        console.log(resBody);
+        if(resBody.message === "notification created"){
+            console.log(resBody.id);
+            notification._id=resBody.id._id;
+            console.log(notification);
             setConfirmModal(true);
             dispatch(ridesActions.setSearch({search:false}));
             setTimeout(()=>{setConfirmModal(false)},3000);
@@ -191,7 +225,7 @@ const Browse=()=>{
           <Modal open={confirmModal}>
             <div className="message">
               <img src={checkFinalFinal} className="imgCheck"></img>
-              Booking Confirmed
+              Request sent
             </div>
           </Modal>
         </div>}

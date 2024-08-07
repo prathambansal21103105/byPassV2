@@ -122,7 +122,21 @@ const Header = () => {
                 <div className={`font-semibold text-white-400`}>Login </div>
               </motion.div>
             </NavLink>}
-
+            {login && <NavLink
+              to="/user/inbox"
+              className={({ isActive }) =>
+                isActive ? `bg-yellow-600 rounded-full` : undefined
+              }
+              id="nav"
+              end
+            >
+              <motion.div
+                whileTap={{ scale: 0.8 }}
+                className="rounded-full hover:bg-cardOverlay p-2 items-center justify-center cursor-pointer"
+              >
+                <div className={`font-semibold text-white-400`}>Inbox </div>
+              </motion.div>
+            </NavLink>}
             {login && <NavLink
               to="/login"
               className={({ isActive }) =>

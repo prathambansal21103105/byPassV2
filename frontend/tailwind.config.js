@@ -57,7 +57,8 @@ module.exports = {
         cartTotal: "#343739",
         bypassColor: "black",
         green: "rgb(130 141 134)",
-        greenBold: "green"
+        greenBold: "green",
+        greenLeaf: "#facc15"
       },
     },
   },

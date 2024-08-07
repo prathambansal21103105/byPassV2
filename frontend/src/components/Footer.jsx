@@ -21,7 +21,7 @@ export const Footer = () => {
             })
           }
           src={Logo}
-          className="w-4/5 h-[300px] m-0 rounded-md"
+          className="w-4/5 h-[400px] m-0 rounded-md"
           alt=""
         />
       </motion.div>

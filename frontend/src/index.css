@@ -39,6 +39,7 @@ code {
   flex-wrap: wrap;
   flex-direction: row;
   z-index:2;
+  height: 100vh;
 }
 
 .user1{
@@ -1122,4 +1123,222 @@ input:focus{
   color:white;
   font-weight: bold;
   margin-top: 20px;
+}
+
+.bell{
+  margin: auto;
+  margin-top: 200px;
+  margin-bottom: 40px;
+  height:70px;
+  width: 60px;
+}
+
+.default{
+  height:100vh;
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  row-gap: 10px;
+  text-align: center;
+}
+
+.textBell{
+  font-size: 20px;
+  color:rgb(246, 248, 181);
+}
+
+.textBell1{
+  font-size: 25px;
+  color:rgb(234, 214, 99);
+}
+
+.load{
+  width: 120px;
+  height: 90px;
+  margin-top: 280px;
+}
+
+.loadBox{
+  height:100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.messages{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 300px;
+}
+
+.messageCard{
+  margin: auto;
+  margin-top: 10px;
+  /* margin-bottom: 80px; */
+  /* background-color: rgb(178 178 178); */
+  /* background-color: #555555; */
+  height:670px;
+  /* padding:30px; */
+  width:600px;
+  /* border-radius: 20px; */
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border: solid rgb(136, 135, 135);
+  border-top : none;
+  text-align: center;
+  padding-bottom: 13px;
+  /* margin-bottom:30px; */
+}
+.messageCard1{
+  margin: auto;
+  margin-top: 10px;
+  /* margin-bottom: 80px; */
+  /* background-color: rgb(178 178 178); */
+  /* background-color: white; */
+  background-color: #c4c2c2;
+  height:70px;
+  /* padding:30px; */
+  width:600px;
+  /* border-radius: 20px; */
+  /* border-bottom-left-radius: 0px; */
+  /* border-bottom-right-radius: 0px; */
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageType{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* overflow-y: scroll; */
+  /* overflow-x: scroll; */
+}
+
+.innerHead{
+  width: 50%;
+  text-align: center;
+  padding: 17px;
+  padding-bottom: 0px;
+  height:80px;
+  border-bottom: solid black;
+  border-right: solid black;
+  background: transparent;
+  color:black;
+  cursor: pointer;
+}
+.innerHead1{
+  width: 50%;
+  text-align: center;
+  padding: 17px;
+  padding-bottom: 0px;
+  height:80px;
+  border-bottom: solid black;
+  background: transparent;
+  color:black;
+  cursor: pointer;
+}
+
+.innerHead2{
+  width: 50%;
+  text-align: center;
+  padding: 17px;
+  padding-bottom: 0px;
+  height:80px;
+  /* border-bottom: solid black; */
+  border-right: solid black;
+  /* background-color: rgb(87, 87, 87); */
+  background-color: rgb(36 36 36);
+  color:white;
+  cursor: pointer;
+}
+
+.innerHead12{
+  width: 50%;
+  text-align: center;
+  padding: 17px;
+  padding-bottom: 0px;
+  height:80px;
+  /* border-bottom: solid black; */
+  /* background-color: rgb(87, 87, 87); */
+  background-color: rgb(36 36 36);
+  color:white;
+  cursor: pointer;
+}
+
+.messageCard::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+.notifyCard{
+  height: 90px;
+  width: 580px;
+  color:black;
+  border-radius: 10px;
+  padding: 7px;
+  font-size: 15px;
+  background-color: #c4c2c2;
+  /* background-color: black; */
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 13px;
+  display: flex;
+  flex-direction: row;
+  border:solid black;
+}
+
+.cross1{
+  height:50px;
+  width: 70px;
+  margin: auto;
+}
+
+.notifyContent{
+  margin-left: 10px;
+  text-align: left;
+}
+
+.blackBg{
+  background-color: black;
+  color:white;
+}
+
+.notifyCard:hover{
+  border: solid cyan;
+}
+
+.notifyCard.blackBg:hover{
+  /* border: solid rgb(146, 145, 145); */
+  border: solid cyan;
+}
+
+.env{
+  height:190px;
+  width: 230px;
+  margin: auto;
+}
+
+.defaultText{
+  margin-top: 40%;
+}
+
+.green{
+  color:green;
+  margin-left: 20px;
+}
+
+.red{
+  color:red;
+  margin-left: 20px;
+}
+
+.bold{
+  font-weight: bold;
 }

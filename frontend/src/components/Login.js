@@ -1,20 +1,28 @@
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { NavLink, redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { userActions } from "../store/user";
 import { loginActions } from "../store/login";
 import { useDispatch } from 'react-redux';
 import axios from "axios";
 
 const validateUser = async(data) => {
-  const res = await axios.post("http://localhost:4000/login", data, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    withCredentials: true, // Include credentials like cookies
-  });
-  return res.data;
+  try{
+    const res = await axios.post("http://localhost:4000/login", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true, // Include credentials like cookies
+    });
+    return res.data;
+  }
+  catch(e){
+    console.log("error caught " + e);
+  }
+  return {};
 }
+
+
 
 const Login = ({modalHandler}) => {
   const dispatch=useDispatch();
@@ -27,17 +35,29 @@ const Login = ({modalHandler}) => {
       email,
       password
     }
-    // console.log(credentials);
     setEmail("");
     setPassword("");
     //validate credentials httpcall and fetch data
     const resBody = await validateUser(credentials);
+    console.log(resBody);
+    // const data = await fetchNotifications({id:resBody.user._id});
+    console.log(resBody);
+    // console.log(data);
+    // if(data.driver){
+    //   if(data.driver.length !== 0){
+    //     dispatch(notificationActions.setShow({show:true}));
+    //     dispatch(notificationActions.setHostRides({driver:data.driver}));
+    //   }
+    // }
+    // if(data.passenger){
+    //   if(data.passenger.length !== 0){
+    //     dispatch(notificationActions.setShow({show:true}));
+    //     dispatch(notificationActions.setGuestRides({passenger:data.passenger}));
+    //   }
+    // }
+    // }
     if(resBody["message"]==="logged in"){
-      // console.log("YES");
-      // console.log("loginReturn");
-      // console.log(resBody.);
       modalHandler("Logged-in");
-      // console.log(resBody);
       dispatch(userActions.setUser(resBody.user));
       dispatch(loginActions.setLogin({login:true}));
       // navigator("/user/browse");

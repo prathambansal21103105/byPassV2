@@ -9,11 +9,31 @@ const session = require('express-session');
 const cookieParser =  require("cookie-parser");
 const MongoStore = require("connect-mongo");
 const bodyParser = require("body-parser");
+const http = require('http');
+const { Server } = require("socket.io");
+const Notification = require("./models/Notification");
+
+// app.use
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+// server.listen(4000, () => {
+//   console.log("server is running");
+// })
+
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 // app.use(cors({ origin: "*" }));
 app.use(express.json());
+
+let users = [];
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
@@ -30,7 +50,7 @@ res.setHeader('Access-Control-Allow-METHODS',"GET, HEAD, POST, PUT, DELETE, TRAC
 
 app.use(
   cors({
-    origin: ["http://localhost:3001", "http://127.0.0.1:3001"],
+    origin: ["http://localhost:3000", "http://127.0.0.1:3000"],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
     exposedHeaders:["set-cookie"]
@@ -67,6 +87,16 @@ mongoose.connect(url).then(()=>{
       return passenger;
     }
   }
+  const fetchNotifications = async(id,flag) => {
+    if(flag){
+      const driver = await Notification.find({driverId:id, status:""});
+      return driver;
+    }
+    else{
+      const passenger = await Notification.find({passengerId:id, status:{$ne:""}});
+      return passenger;
+    }
+  }
   app.get("/",(req,res)=>{
     
   })
@@ -74,14 +104,11 @@ mongoose.connect(url).then(()=>{
   app.post("/login",async(req,res)=>{
     const data = req.body;
     const user = await User.findOne({email:data.email});
-    // console.log(user);
     if(!user){
-      // console.log("No such user exists");
       res.status(404).json({"message":"User not found."});
     }
     else{
       if(user.password === data.password){
-        // console.log("User logged in");
         // req.session.user= JSON.stringify(user);
         req.session.user = user;
         // console.log(req.sessionID);
@@ -97,53 +124,38 @@ mongoose.connect(url).then(()=>{
   
   app.post("/register",async(req,res)=>{
     const data = req.body;
-    // console.log(data);
     const userExists = await User.findOne({email:data.email});
     if(userExists){
-      // console.log("User already exists");
       res.status(401).json({"message":"User already exists"});
     }
     else{
-      // console.log("user created");
       const user = new User(data);
       const id = await user.save();
-      // console.log(id);
-      res.json({"message":"user created"});
+      res.json({"message":"user created", "id": id});
     }
   })
 
   app.post("/updateUser",async(req,res)=>{
-    // console.log("Yes");
     const data = req.body;
-    // console.log(data);
     const val = await User.updateOne({email:data.email},{$set:{username:data.username, mobileNumber:data.mobileNumber, password:data.password, city:data.city, code:data.code, car:data.car, type:data.type, color:data.color, carNum:data.carNum, rating:data.rating}})
-    console.log(val);
+    // console.log(val);
     if(val.modifiedCount===1){
       req.session.user = data;
-      console.log(req.session.user);
+      // console.log(req.session.user);
     }
     res.json({"message":"user updated"});
   })
   
   app.post("/fetchRides", async(req,res)=>{
     const data = req.body;
-    // console.log(data);
-    // console.log("session");
-    // console.log(req.sessionID);
-    // console.log(req.session)
-    // console.log(req.session.user)
     const driver = await fetchRides(data.id,true);
     const passenger = await fetchRides(data.id,false);
-    // console.log(driver);
-    // console.log(passenger);
     res.json({"message":"rides fetched", "driver":driver, "passenger":passenger});
   })
 
   app.post("/searchRides", async(req,res)=>{
     const data = req.body;
-    // console.log(data);
     const rides = await Ride.find({source:{$eq: data.source}, destination:{$eq: data.destination}, passengerId:{$eq: ""}});
-    // console.log(rides);
     res.json({"message":"search completed", "rides":rides});
   })
 
@@ -151,17 +163,23 @@ mongoose.connect(url).then(()=>{
     const data = req.body;
     const ride = new Ride(data);
     const id = await ride.save();
-    // console.log(id);
-    res.json({"message":"ride published"});
+    res.json({"message":"ride published", "id":id});
   })
 
   app.post("/bookRide", async(req,res)=>{
+    console.log("bookRide");
     const data = req.body;
     const rideId = data.rideId;
     const passengerId = data.passengerId;
     const passengerContact = data.passengerContact;
-    // console.log(data);
+    console.log(data);
+    // notifyHost(data.driverId, {
+    //   type: 'NEW_BOOKING',
+    //   rideId: rideId,
+    //   passengerId: passengerId,
+    // });
     const val = await Ride.updateOne({_id:rideId},{$set:{passengerId:passengerId, passengerContact:passengerContact}});
+    console.log(val);
     if(val.modifiedCount === 1){
       res.json({"message":"booking confirmed"});
     }
@@ -170,29 +188,120 @@ mongoose.connect(url).then(()=>{
     }
   })
 
+  app.post("/createNotification", async(req,res)=>{
+    const data = req.body;
+    console.log(data);
+    const notificationExists = await Notification.findOne({rideId:data.rideId, driverId:data.driverId, passengerId:data.passengerId, status:""});
+    if(notificationExists){
+      res.status(200).json({"message":"notification already sent!"});
+    }
+    else{
+      const notification = new Notification(data);
+      const id = await notification.save();
+      console.log("notification created "+id);
+      res.status(200).json({"message":"notification created", "id":id});
+    }
+  })
+
+  app.post("/getNotifications", async(req,res)=>{
+    const data = req.body;
+    console.log("info");
+    console.log(data);
+    const driver = await fetchNotifications(data.id,true);
+    const passenger = await fetchNotifications(data.id,false);
+    console.log("driver");
+    console.log(driver);
+    console.log(passenger);
+    res.status(200).json({driver:driver,passenger:passenger});
+  })
+
+  app.post("/updateNotifications", async(req,res)=>{
+    const data = req.body;
+    const id = data.id;
+    const flag = data.flag;
+    let val = "false";
+    if(flag){
+      val = "true";
+    }
+    else{
+      val = "false";
+    }
+    console.log(id);
+    console.log(val);
+    // console.log(data);
+    const updateData = await Notification.updateOne({_id:id},{$set:{status:val}})
+    // console.log(updateData);
+    if(updateData.modifiedCount === 1){
+      res.status(200).json({message:"updated notification"})
+    }
+    else{
+      res.status(200).json({message:"error caught"})
+    }
+  })
+
   app.get("/destroy", (req,res)=>{
-    console.log("destroy");
+    // console.log("destroy");
     req.session.destroy();
-    // console.log(req.session);
     res.status(200).json({message:"Successfully logged out"});
   })
 
   app.get("/getUser", (req,res)=>{
-    console.log("getUser");
+    // console.log("getUser");
     if(req.session && req.session.user){
-      console.log(req.session.user);
+      // console.log(req.session.user);
       res.status(200).json({user:req.session.user});
     }
     else{
-      console.log(req.session.user);
+      // console.log(req.session.user);
       res.status(200).json({user:null});
     }
   })
+
+  io.on("connection",(socket)=>{
+    // console.log("user connected:" + socket.id);
+    socket.on("request_ride", (data)=>{
+      // console.log("from_passenger");
+      // console.log(data);
+      socket.broadcast.emit("from_passenger", data);
+    })
+    socket.on("accept_decline_ride", (data)=>{
+      // console.log(data);
+      socket.broadcast.emit("from_driver", data);
+    })
+  })
   
-  app.listen(port, async() => {
+
+  // Create an HTTP server and bind the Express app to it
+  // const server = http.createServer(app);
+  
+  // WebSocket server setup
+  // const wss = new WebSocket.Server({ server });
+  
+  // let clients = [];
+
+  // wss.on('connection', (ws) => {
+  //   clients.push(ws);
+
+  //   ws.on('message', (message) => {
+  //     console.log(`Received message: ${message}`);
+  //   });
+
+  //   ws.on('close', () => {
+  //     clients = clients.filter(client => client !== ws);
+  //   });
+  // });
+
+  // function notifyHost(hostId, notification) {
+  //   clients.forEach(client => {
+  //     if (client.hostId === hostId) {
+  //       client.send(JSON.stringify(notification));
+  //     }
+  //   });
+  // }
+  
+  server.listen(port, async() => {
     console.log("Server is running on port:" + port);
   });
 }).catch(()=> console.log("Error Connecting to Database...."))
 
-// car image
 // profile image
